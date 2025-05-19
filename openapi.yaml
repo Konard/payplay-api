@@ -1,0 +1,4082 @@
+openapi: 3.0.0
+info:
+  title: PayPlay API
+  version: 1.0.0
+  description: PayPlay API documentation generated from markdown files
+servers:
+  - url: https://api.payplay.io
+    description: PayPlay API server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication
+  schemas: {}
+  parameters: {}
+security:
+  - bearerAuth: []
+paths:
+  /private-api/balances/:
+    get:
+      summary: GET /private-api/balances/
+      parameters:
+        - name: balanceID
+          in: query
+          required: true
+          schema:
+            type: string
+          description: balance id in specified balance currency
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balances:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        currency:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            ticker:
+                              type: string
+                            is_fiat:
+                              type: boolean
+                            is_used_for_order_exchange:
+                              type: boolean
+                            icon:
+                              type: string
+                            crm_icon:
+                              type: string
+                            precision:
+                              type: number
+                            title:
+                              type: string
+                          required:
+                            - id
+                            - ticker
+                            - is_fiat
+                            - is_used_for_order_exchange
+                            - icon
+                            - crm_icon
+                            - precision
+                            - title
+                        value:
+                          type: string
+                      required:
+                        - id
+                        - currency
+                        - value
+                required:
+                  - balances
+              example:
+                balances:
+                  - id: 9a747ebd-1b42-4bd2-a72e-62ffedd3f4aa
+                    currency:
+                      id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                      ticker: USDT
+                      is_fiat: false
+                      is_used_for_order_exchange: true
+                      icon: https://media.payplay.io/currency-default-icon.svg
+                      crm_icon: https://media.payplay.io/currency-default-icon.svg
+                      precision: 4
+                      title: Tether US
+                    value: '87.06441001'
+  /private-api/balances/{balanceID}:
+    get:
+      summary: GET /private-api/balances/{balanceID}
+      parameters:
+        - name: balanceID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: balance id in specified balance currency
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balances:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        currency:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            ticker:
+                              type: string
+                            is_fiat:
+                              type: boolean
+                            is_used_for_order_exchange:
+                              type: boolean
+                            icon:
+                              type: string
+                            crm_icon:
+                              type: string
+                            precision:
+                              type: number
+                            title:
+                              type: string
+                          required:
+                            - id
+                            - ticker
+                            - is_fiat
+                            - is_used_for_order_exchange
+                            - icon
+                            - crm_icon
+                            - precision
+                            - title
+                        value:
+                          type: string
+                      required:
+                        - id
+                        - currency
+                        - value
+                required:
+                  - balances
+              example:
+                balances:
+                  - id: 9a747ebd-1b42-4bd2-a72e-62ffedd3f4aa
+                    currency:
+                      id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                      ticker: USDT
+                      is_fiat: false
+                      is_used_for_order_exchange: true
+                      icon: https://media.payplay.io/currency-default-icon.svg
+                      crm_icon: https://media.payplay.io/currency-default-icon.svg
+                      precision: 4
+                      title: Tether US
+                    value: '87.06441001'
+    post:
+      summary: POST /private-api/balances/{balanceID}
+      parameters:
+        - name: balanceID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: balance id in specified balance currency
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balances:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        currency:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            ticker:
+                              type: string
+                            is_fiat:
+                              type: boolean
+                            is_used_for_order_exchange:
+                              type: boolean
+                            icon:
+                              type: string
+                            crm_icon:
+                              type: string
+                            precision:
+                              type: number
+                            title:
+                              type: string
+                          required:
+                            - id
+                            - ticker
+                            - is_fiat
+                            - is_used_for_order_exchange
+                            - icon
+                            - crm_icon
+                            - precision
+                            - title
+                        value:
+                          type: string
+                      required:
+                        - id
+                        - currency
+                        - value
+                required:
+                  - balances
+              example:
+                balances:
+                  - id: 9a747ebd-1b42-4bd2-a72e-62ffedd3f4aa
+                    currency:
+                      id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                      ticker: USDT
+                      is_fiat: false
+                      is_used_for_order_exchange: true
+                      icon: https://media.payplay.io/currency-default-icon.svg
+                      crm_icon: https://media.payplay.io/currency-default-icon.svg
+                      precision: 4
+                      title: Tether US
+                    value: '87.06441001'
+  /private-api/convert-withdrawal/currencies:
+    get:
+      summary: GET /private-api/convert-withdrawal/currencies
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the currency to be converted
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the amount in currency to be converted
+        - name: target_currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the currency into which the conversion will take place
+        - name: address
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the address of the crypto wallet to which the funds will be withdrawn
+        - name: network
+          in: query
+          required: true
+          schema:
+            type: string
+          description: crypto wallet network
+        - name: memo
+          in: query
+          required: false
+          schema:
+            type: string
+          description: crypto wallet memo
+        - name: external_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: external id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      value:
+                        type: string
+                      target_currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      target_value:
+                        type: string
+                      status:
+                        type: string
+                      type:
+                        type: string
+                      network:
+                        type: string
+                      address:
+                        type: string
+                      memo:
+                        type: string
+                      fee:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      estimated_at:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      external_id:
+                        type: string
+                    required:
+                      - id
+                      - currency
+                      - value
+                      - target_currency
+                      - target_value
+                      - status
+                      - type
+                      - network
+                      - address
+                      - memo
+                      - fee
+                      - exchange_rate
+                      - estimated_at
+                      - created_at
+                      - completed_at
+                      - external_id
+                required:
+                  - transaction
+              example:
+                transaction:
+                  id: 9d8a6c88-e55c-487e-9f1c-427dfd0ab0ef
+                  currency:
+                    id: a4d2e5b4-aa82-43dc-af9c-663e8d5c33d5
+                    ticker: EUR
+                    is_fiat: true
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    crm_icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    precision: 2
+                    title: Euro
+                  value: '50'
+                  target_currency:
+                    id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                    ticker: USDT
+                    is_fiat: false
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    crm_icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    precision: 2
+                    title: Tether US
+                  target_value: '50.665446'
+                  status: PENDING_WITHDRAWAL
+                  type: CONVERT_WITHDRAWAL
+                  network: TON
+                  address: EQAigd8MjqsJejMuIB0UPhErOlGe22dezkpjvpWt9kOrtkG8
+                  memo: '4116605216'
+                  fee: null
+                  exchange_rate: '0.98686588093984211645'
+                  estimated_at: '2024-11-21 08:44:17'
+                  created_at: '2024-11-21 08:41:59'
+                  completed_at: null
+                  external_id: '23523512'
+  /private-api/convert-withdrawal:
+    post:
+      summary: POST /private-api/convert-withdrawal
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the currency to be converted
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the amount in currency to be converted
+        - name: target_currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the currency into which the conversion will take place
+        - name: address
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the address of the crypto wallet to which the funds will be withdrawn
+        - name: network
+          in: query
+          required: true
+          schema:
+            type: string
+          description: crypto wallet network
+        - name: memo
+          in: query
+          required: false
+          schema:
+            type: string
+          description: crypto wallet memo
+        - name: external_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: external id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      value:
+                        type: string
+                      target_currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      target_value:
+                        type: string
+                      status:
+                        type: string
+                      type:
+                        type: string
+                      network:
+                        type: string
+                      address:
+                        type: string
+                      memo:
+                        type: string
+                      fee:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      estimated_at:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      external_id:
+                        type: string
+                    required:
+                      - id
+                      - currency
+                      - value
+                      - target_currency
+                      - target_value
+                      - status
+                      - type
+                      - network
+                      - address
+                      - memo
+                      - fee
+                      - exchange_rate
+                      - estimated_at
+                      - created_at
+                      - completed_at
+                      - external_id
+                required:
+                  - transaction
+              example:
+                transaction:
+                  id: 9d8a6c88-e55c-487e-9f1c-427dfd0ab0ef
+                  currency:
+                    id: a4d2e5b4-aa82-43dc-af9c-663e8d5c33d5
+                    ticker: EUR
+                    is_fiat: true
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    crm_icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    precision: 2
+                    title: Euro
+                  value: '50'
+                  target_currency:
+                    id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                    ticker: USDT
+                    is_fiat: false
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    crm_icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    precision: 2
+                    title: Tether US
+                  target_value: '50.665446'
+                  status: PENDING_WITHDRAWAL
+                  type: CONVERT_WITHDRAWAL
+                  network: TON
+                  address: EQAigd8MjqsJejMuIB0UPhErOlGe22dezkpjvpWt9kOrtkG8
+                  memo: '4116605216'
+                  fee: null
+                  exchange_rate: '0.98686588093984211645'
+                  estimated_at: '2024-11-21 08:44:17'
+                  created_at: '2024-11-21 08:41:59'
+                  completed_at: null
+                  external_id: '23523512'
+  /private-api/convert-withdrawal/{transactionID}/refresh:
+    post:
+      summary: POST /private-api/convert-withdrawal/{transactionID}/refresh
+      parameters:
+        - name: transactionID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: PayPlay transaction id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      value:
+                        type: string
+                      target_currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      target_value:
+                        type: string
+                      status:
+                        type: string
+                      type:
+                        type: string
+                      network:
+                        type: string
+                      address:
+                        type: string
+                      memo:
+                        type: string
+                      fee:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      estimated_at:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      external_id:
+                        type: string
+                    required:
+                      - id
+                      - currency
+                      - value
+                      - target_currency
+                      - target_value
+                      - status
+                      - type
+                      - network
+                      - address
+                      - memo
+                      - fee
+                      - exchange_rate
+                      - estimated_at
+                      - created_at
+                      - completed_at
+                      - external_id
+                required:
+                  - transaction
+              example:
+                transaction:
+                  id: 9d8a6c88-e55c-487e-9f1c-427dfd0ab0ef
+                  currency:
+                    id: a4d2e5b4-aa82-43dc-af9c-663e8d5c33d5
+                    ticker: EUR
+                    is_fiat: true
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    crm_icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    precision: 2
+                    title: Euro
+                  value: '50'
+                  target_currency:
+                    id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                    ticker: USDT
+                    is_fiat: false
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    crm_icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    precision: 2
+                    title: Tether US
+                  target_value: '50.665446'
+                  status: PENDING_WITHDRAWAL
+                  type: CONVERT_WITHDRAWAL
+                  network: TON
+                  address: EQAigd8MjqsJejMuIB0UPhErOlGe22dezkpjvpWt9kOrtkG8
+                  memo: '4116605216'
+                  fee: null
+                  exchange_rate: '0.98686588093984211645'
+                  estimated_at: '2024-11-21 08:44:17'
+                  created_at: '2024-11-21 08:41:59'
+                  completed_at: null
+                  external_id: '23523512'
+  /private-api/convert-withdrawal/{transactionID}/confirm:
+    post:
+      summary: POST /private-api/convert-withdrawal/{transactionID}/confirm
+      parameters:
+        - name: transactionID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: PayPlay transaction id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      value:
+                        type: string
+                      target_currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      target_value:
+                        type: string
+                      status:
+                        type: string
+                      type:
+                        type: string
+                      network:
+                        type: string
+                      address:
+                        type: string
+                      memo:
+                        type: string
+                      fee:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      estimated_at:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      external_id:
+                        type: string
+                    required:
+                      - id
+                      - currency
+                      - value
+                      - target_currency
+                      - target_value
+                      - status
+                      - type
+                      - network
+                      - address
+                      - memo
+                      - fee
+                      - exchange_rate
+                      - estimated_at
+                      - created_at
+                      - completed_at
+                      - external_id
+                required:
+                  - transaction
+              example:
+                transaction:
+                  id: 9d8a6c88-e55c-487e-9f1c-427dfd0ab0ef
+                  currency:
+                    id: a4d2e5b4-aa82-43dc-af9c-663e8d5c33d5
+                    ticker: EUR
+                    is_fiat: true
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    crm_icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    precision: 2
+                    title: Euro
+                  value: '50'
+                  target_currency:
+                    id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                    ticker: USDT
+                    is_fiat: false
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    crm_icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    precision: 2
+                    title: Tether US
+                  target_value: '50.665446'
+                  status: PENDING_WITHDRAWAL
+                  type: CONVERT_WITHDRAWAL
+                  network: TON
+                  address: EQAigd8MjqsJejMuIB0UPhErOlGe22dezkpjvpWt9kOrtkG8
+                  memo: '4116605216'
+                  fee: null
+                  exchange_rate: '0.98686588093984211645'
+                  estimated_at: '2024-11-21 08:44:17'
+                  created_at: '2024-11-21 08:41:59'
+                  completed_at: null
+                  external_id: '23523512'
+  /private-api/convert-withdrawal/instant:
+    post:
+      summary: POST /private-api/convert-withdrawal/instant
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the currency to be converted
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the amount in currency to be converted
+        - name: target_currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the currency into which the conversion will take place
+        - name: address
+          in: query
+          required: true
+          schema:
+            type: string
+          description: the address of the crypto wallet to which the funds will be withdrawn
+        - name: network
+          in: query
+          required: true
+          schema:
+            type: string
+          description: crypto wallet network
+        - name: memo
+          in: query
+          required: false
+          schema:
+            type: string
+          description: crypto wallet memo
+        - name: external_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: external id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      value:
+                        type: string
+                      target_currency:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          ticker:
+                            type: string
+                          is_fiat:
+                            type: boolean
+                          is_stable:
+                            type: boolean
+                          is_used_for_order_exchange:
+                            type: boolean
+                          icon:
+                            type: string
+                          crm_icon:
+                            type: string
+                          precision:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                          - id
+                          - ticker
+                          - is_fiat
+                          - is_stable
+                          - is_used_for_order_exchange
+                          - icon
+                          - crm_icon
+                          - precision
+                          - title
+                      target_value:
+                        type: string
+                      status:
+                        type: string
+                      type:
+                        type: string
+                      network:
+                        type: string
+                      address:
+                        type: string
+                      memo:
+                        type: string
+                      fee:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      estimated_at:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      external_id:
+                        type: string
+                    required:
+                      - id
+                      - currency
+                      - value
+                      - target_currency
+                      - target_value
+                      - status
+                      - type
+                      - network
+                      - address
+                      - memo
+                      - fee
+                      - exchange_rate
+                      - estimated_at
+                      - created_at
+                      - completed_at
+                      - external_id
+                required:
+                  - transaction
+              example:
+                transaction:
+                  id: 9d8a6c88-e55c-487e-9f1c-427dfd0ab0ef
+                  currency:
+                    id: a4d2e5b4-aa82-43dc-af9c-663e8d5c33d5
+                    ticker: EUR
+                    is_fiat: true
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    crm_icon: https://media.payplay.io/03f2fa65-4930-4064-be1c-a15793c380f9/eur.svg
+                    precision: 2
+                    title: Euro
+                  value: '50'
+                  target_currency:
+                    id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                    ticker: USDT
+                    is_fiat: false
+                    is_stable: true
+                    is_used_for_order_exchange: true
+                    icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    crm_icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    precision: 2
+                    title: Tether US
+                  target_value: '50.665446'
+                  status: PENDING_WITHDRAWAL
+                  type: CONVERT_WITHDRAWAL
+                  network: TON
+                  address: EQAigd8MjqsJejMuIB0UPhErOlGe22dezkpjvpWt9kOrtkG8
+                  memo: '4116605216'
+                  fee: null
+                  exchange_rate: '0.98686588093984211645'
+                  estimated_at: '2024-11-21 08:44:17'
+                  created_at: '2024-11-21 08:41:59'
+                  completed_at: null
+                  external_id: '23523512'
+  /private-api/crypto-orders/{slug}:
+    post:
+      summary: POST /private-api/crypto-orders/{slug}
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: string
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items: {}
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: 5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  currency: EUR
+                  order_number: '348883076'
+                  value: '100'
+                  expected_amount: null
+                  received_total: '0'
+                  exchange_rate: null
+                  clean_exchange_rate: null
+                  is_internal: null
+                  deposited_currency: null
+                  received_currency: null
+                  status: INIT
+                  external_order_id: '2362325124'
+                  created_at: '2024-12-05 09:51:25'
+                  completed_at: null
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  successful_link: null
+                  failure_link: null
+                  transactions: []
+    get:
+      summary: GET /private-api/crypto-orders/{slug}
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: string
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items: {}
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: 5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  currency: EUR
+                  order_number: '348883076'
+                  value: '100'
+                  expected_amount: null
+                  received_total: '0'
+                  exchange_rate: null
+                  clean_exchange_rate: null
+                  is_internal: null
+                  deposited_currency: null
+                  received_currency: null
+                  status: INIT
+                  external_order_id: '2362325124'
+                  created_at: '2024-12-05 09:51:25'
+                  completed_at: null
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  successful_link: null
+                  failure_link: null
+                  transactions: []
+  /private-api/crypto-orders/{slug}/{orderID}:
+    get:
+      summary: GET /private-api/crypto-orders/{slug}/{orderID}
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
+        - name: orderID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique identifier of order
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: string
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items: {}
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: 5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  currency: EUR
+                  order_number: '348883076'
+                  value: '100'
+                  expected_amount: null
+                  received_total: '0'
+                  exchange_rate: null
+                  clean_exchange_rate: null
+                  is_internal: null
+                  deposited_currency: null
+                  received_currency: null
+                  status: INIT
+                  external_order_id: '2362325124'
+                  created_at: '2024-12-05 09:51:25'
+                  completed_at: null
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  successful_link: null
+                  failure_link: null
+                  transactions: []
+  /currencies/crypto-order-target-currencies:
+    get:
+      summary: GET /currencies/crypto-order-target-currencies
+      parameters:
+        - name: slug
+          in: query
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
+        - name: orderID
+          in: query
+          required: true
+          schema:
+            type: string
+          description: PayPlay internal order identifier
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: string
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items: {}
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: 5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  currency: EUR
+                  order_number: '348883076'
+                  value: '100'
+                  expected_amount: null
+                  received_total: '0'
+                  exchange_rate: null
+                  clean_exchange_rate: null
+                  is_internal: null
+                  deposited_currency: null
+                  received_currency: null
+                  status: INIT
+                  external_order_id: '2362325124'
+                  created_at: '2024-12-05 09:51:25'
+                  completed_at: null
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  successful_link: null
+                  failure_link: null
+                  transactions: []
+  /private-api/crypto-orders/{slug}/{orderID}/complete:
+    post:
+      summary: POST /private-api/crypto-orders/{slug}/{orderID}/complete
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
+        - name: orderID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: PayPlay internal order identifier
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: string
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items: {}
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: 5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  currency: EUR
+                  order_number: '348883076'
+                  value: '100'
+                  expected_amount: null
+                  received_total: '0'
+                  exchange_rate: null
+                  clean_exchange_rate: null
+                  is_internal: null
+                  deposited_currency: null
+                  received_currency: null
+                  status: INIT
+                  external_order_id: '2362325124'
+                  created_at: '2024-12-05 09:51:25'
+                  completed_at: null
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/5f96a6c7-d2f6-4e20-8ace-9f398b8ce43e
+                  successful_link: null
+                  failure_link: null
+                  transactions: []
+  /private-api/crypto-topups/{slug}:
+    post:
+      summary: POST /private-api/crypto-topups/{slug}
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: string
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items: {}
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: c80e472d-8fd2-4b5b-b5ef-a3a27b3066d2
+                  currency: USD
+                  order_number: '914569220'
+                  value: '20'
+                  expected_amount: null
+                  received_total: '0'
+                  exchange_rate: null
+                  clean_exchange_rate: null
+                  is_internal: null
+                  deposited_currency: null
+                  received_currency: USDT
+                  status: INIT
+                  external_order_id: '323523'
+                  created_at: '2024-12-09 13:44:50'
+                  completed_at: null
+                  acquiring_url: https://merchant.pay.payplay.io/topup-orders/crypto/c80e472d-8fd2-4b5b-b5ef-a3a27b3066d2
+                  successful_link: null
+                  failure_link: null
+                  transactions: []
+  /private-api/currencies/crypto-topup-target-currencies:
+    get:
+      summary: GET /private-api/currencies/crypto-topup-target-currencies
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: string
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items: {}
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: c80e472d-8fd2-4b5b-b5ef-a3a27b3066d2
+                  currency: USD
+                  order_number: '914569220'
+                  value: '20'
+                  expected_amount: null
+                  received_total: '0'
+                  exchange_rate: null
+                  clean_exchange_rate: null
+                  is_internal: null
+                  deposited_currency: null
+                  received_currency: USDT
+                  status: INIT
+                  external_order_id: '323523'
+                  created_at: '2024-12-09 13:44:50'
+                  completed_at: null
+                  acquiring_url: https://merchant.pay.payplay.io/topup-orders/crypto/c80e472d-8fd2-4b5b-b5ef-a3a27b3066d2
+                  successful_link: null
+                  failure_link: null
+                  transactions: []
+  /private-api/orders/{slug}/{orderId}:
+    get:
+      summary: GET /private-api/orders/{slug}/{orderId}
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique identifier of order
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: boolean
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            currency:
+                              type: string
+                            value:
+                              type: string
+                            status:
+                              type: string
+                            hash:
+                              type: string
+                            is_internal:
+                              type: boolean
+                            created_at:
+                              type: string
+                            completed_at:
+                              type: string
+                            explorer_link:
+                              type: string
+                          required:
+                            - id
+                            - type
+                            - currency
+                            - value
+                            - status
+                            - hash
+                            - is_internal
+                            - created_at
+                            - completed_at
+                            - explorer_link
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  currency: USDT
+                  order_number: '716274867'
+                  value: '10'
+                  expected_amount: '10'
+                  received_total: '9.9'
+                  exchange_rate: '1'
+                  clean_exchange_rate: '1'
+                  is_internal: false
+                  deposited_currency: USDT
+                  received_currency: USDT
+                  status: COMPLETE
+                  external_order_id: null
+                  created_at: '2024-12-02 10:03:26'
+                  completed_at: '2024-12-02 10:21:32'
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  successful_link: null
+                  failure_link: null
+                  transactions:
+                    - id: 9da0b0f6-b071-4166-aa23-7f17746afe52
+                      type: CRYPTO_INVOICE
+                      currency: USDT
+                      value: '10'
+                      status: COMPLETE
+                      hash: e82549fe-1a52-4db2-a2fe-f4a315a78d24
+                      is_internal: false
+                      created_at: '2024-12-02 10:21:32'
+                      completed_at: '2024-12-02 10:21:32'
+                      explorer_link: null
+  /private-api/orders/{slug}:
+    get:
+      summary: GET /private-api/orders/{slug}
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: boolean
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            currency:
+                              type: string
+                            value:
+                              type: string
+                            status:
+                              type: string
+                            hash:
+                              type: string
+                            is_internal:
+                              type: boolean
+                            created_at:
+                              type: string
+                            completed_at:
+                              type: string
+                            explorer_link:
+                              type: string
+                          required:
+                            - id
+                            - type
+                            - currency
+                            - value
+                            - status
+                            - hash
+                            - is_internal
+                            - created_at
+                            - completed_at
+                            - explorer_link
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  currency: USDT
+                  order_number: '716274867'
+                  value: '10'
+                  expected_amount: '10'
+                  received_total: '9.9'
+                  exchange_rate: '1'
+                  clean_exchange_rate: '1'
+                  is_internal: false
+                  deposited_currency: USDT
+                  received_currency: USDT
+                  status: COMPLETE
+                  external_order_id: null
+                  created_at: '2024-12-02 10:03:26'
+                  completed_at: '2024-12-02 10:21:32'
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  successful_link: null
+                  failure_link: null
+                  transactions:
+                    - id: 9da0b0f6-b071-4166-aa23-7f17746afe52
+                      type: CRYPTO_INVOICE
+                      currency: USDT
+                      value: '10'
+                      status: COMPLETE
+                      hash: e82549fe-1a52-4db2-a2fe-f4a315a78d24
+                      is_internal: false
+                      created_at: '2024-12-02 10:21:32'
+                      completed_at: '2024-12-02 10:21:32'
+                      explorer_link: null
+  /private-api/order-statuses:
+    get:
+      summary: GET /private-api/order-statuses
+      parameters:
+        - name: transactionID
+          in: query
+          required: true
+          schema:
+            type: string
+          description: PayPlay internal transaction id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: boolean
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            currency:
+                              type: string
+                            value:
+                              type: string
+                            status:
+                              type: string
+                            hash:
+                              type: string
+                            is_internal:
+                              type: boolean
+                            created_at:
+                              type: string
+                            completed_at:
+                              type: string
+                            explorer_link:
+                              type: string
+                          required:
+                            - id
+                            - type
+                            - currency
+                            - value
+                            - status
+                            - hash
+                            - is_internal
+                            - created_at
+                            - completed_at
+                            - explorer_link
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  currency: USDT
+                  order_number: '716274867'
+                  value: '10'
+                  expected_amount: '10'
+                  received_total: '9.9'
+                  exchange_rate: '1'
+                  clean_exchange_rate: '1'
+                  is_internal: false
+                  deposited_currency: USDT
+                  received_currency: USDT
+                  status: COMPLETE
+                  external_order_id: null
+                  created_at: '2024-12-02 10:03:26'
+                  completed_at: '2024-12-02 10:21:32'
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  successful_link: null
+                  failure_link: null
+                  transactions:
+                    - id: 9da0b0f6-b071-4166-aa23-7f17746afe52
+                      type: CRYPTO_INVOICE
+                      currency: USDT
+                      value: '10'
+                      status: COMPLETE
+                      hash: e82549fe-1a52-4db2-a2fe-f4a315a78d24
+                      is_internal: false
+                      created_at: '2024-12-02 10:21:32'
+                      completed_at: '2024-12-02 10:21:32'
+                      explorer_link: null
+  /private-api/transactions/{transactionID}:
+    get:
+      summary: GET /private-api/transactions/{transactionID}
+      parameters:
+        - name: transactionID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: PayPlay internal transaction id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: boolean
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            currency:
+                              type: string
+                            value:
+                              type: string
+                            status:
+                              type: string
+                            hash:
+                              type: string
+                            is_internal:
+                              type: boolean
+                            created_at:
+                              type: string
+                            completed_at:
+                              type: string
+                            explorer_link:
+                              type: string
+                          required:
+                            - id
+                            - type
+                            - currency
+                            - value
+                            - status
+                            - hash
+                            - is_internal
+                            - created_at
+                            - completed_at
+                            - explorer_link
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  currency: USDT
+                  order_number: '716274867'
+                  value: '10'
+                  expected_amount: '10'
+                  received_total: '9.9'
+                  exchange_rate: '1'
+                  clean_exchange_rate: '1'
+                  is_internal: false
+                  deposited_currency: USDT
+                  received_currency: USDT
+                  status: COMPLETE
+                  external_order_id: null
+                  created_at: '2024-12-02 10:03:26'
+                  completed_at: '2024-12-02 10:21:32'
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  successful_link: null
+                  failure_link: null
+                  transactions:
+                    - id: 9da0b0f6-b071-4166-aa23-7f17746afe52
+                      type: CRYPTO_INVOICE
+                      currency: USDT
+                      value: '10'
+                      status: COMPLETE
+                      hash: e82549fe-1a52-4db2-a2fe-f4a315a78d24
+                      is_internal: false
+                      created_at: '2024-12-02 10:21:32'
+                      completed_at: '2024-12-02 10:21:32'
+                      explorer_link: null
+  /private-api/transactions:
+    get:
+      summary: GET /private-api/transactions
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: boolean
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            currency:
+                              type: string
+                            value:
+                              type: string
+                            status:
+                              type: string
+                            hash:
+                              type: string
+                            is_internal:
+                              type: boolean
+                            created_at:
+                              type: string
+                            completed_at:
+                              type: string
+                            explorer_link:
+                              type: string
+                          required:
+                            - id
+                            - type
+                            - currency
+                            - value
+                            - status
+                            - hash
+                            - is_internal
+                            - created_at
+                            - completed_at
+                            - explorer_link
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  currency: USDT
+                  order_number: '716274867'
+                  value: '10'
+                  expected_amount: '10'
+                  received_total: '9.9'
+                  exchange_rate: '1'
+                  clean_exchange_rate: '1'
+                  is_internal: false
+                  deposited_currency: USDT
+                  received_currency: USDT
+                  status: COMPLETE
+                  external_order_id: null
+                  created_at: '2024-12-02 10:03:26'
+                  completed_at: '2024-12-02 10:21:32'
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  successful_link: null
+                  failure_link: null
+                  transactions:
+                    - id: 9da0b0f6-b071-4166-aa23-7f17746afe52
+                      type: CRYPTO_INVOICE
+                      currency: USDT
+                      value: '10'
+                      status: COMPLETE
+                      hash: e82549fe-1a52-4db2-a2fe-f4a315a78d24
+                      is_internal: false
+                      created_at: '2024-12-02 10:21:32'
+                      completed_at: '2024-12-02 10:21:32'
+                      explorer_link: null
+  /rates:
+    get:
+      summary: GET /rates
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: boolean
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            currency:
+                              type: string
+                            value:
+                              type: string
+                            status:
+                              type: string
+                            hash:
+                              type: string
+                            is_internal:
+                              type: boolean
+                            created_at:
+                              type: string
+                            completed_at:
+                              type: string
+                            explorer_link:
+                              type: string
+                          required:
+                            - id
+                            - type
+                            - currency
+                            - value
+                            - status
+                            - hash
+                            - is_internal
+                            - created_at
+                            - completed_at
+                            - explorer_link
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  currency: USDT
+                  order_number: '716274867'
+                  value: '10'
+                  expected_amount: '10'
+                  received_total: '9.9'
+                  exchange_rate: '1'
+                  clean_exchange_rate: '1'
+                  is_internal: false
+                  deposited_currency: USDT
+                  received_currency: USDT
+                  status: COMPLETE
+                  external_order_id: null
+                  created_at: '2024-12-02 10:03:26'
+                  completed_at: '2024-12-02 10:21:32'
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  successful_link: null
+                  failure_link: null
+                  transactions:
+                    - id: 9da0b0f6-b071-4166-aa23-7f17746afe52
+                      type: CRYPTO_INVOICE
+                      currency: USDT
+                      value: '10'
+                      status: COMPLETE
+                      hash: e82549fe-1a52-4db2-a2fe-f4a315a78d24
+                      is_internal: false
+                      created_at: '2024-12-02 10:21:32'
+                      completed_at: '2024-12-02 10:21:32'
+                      explorer_link: null
+  /private-api/exchange-rates/{currencyTicker}:
+    get:
+      summary: GET /private-api/exchange-rates/{currencyTicker}
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: boolean
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            currency:
+                              type: string
+                            value:
+                              type: string
+                            status:
+                              type: string
+                            hash:
+                              type: string
+                            is_internal:
+                              type: boolean
+                            created_at:
+                              type: string
+                            completed_at:
+                              type: string
+                            explorer_link:
+                              type: string
+                          required:
+                            - id
+                            - type
+                            - currency
+                            - value
+                            - status
+                            - hash
+                            - is_internal
+                            - created_at
+                            - completed_at
+                            - explorer_link
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  currency: USDT
+                  order_number: '716274867'
+                  value: '10'
+                  expected_amount: '10'
+                  received_total: '9.9'
+                  exchange_rate: '1'
+                  clean_exchange_rate: '1'
+                  is_internal: false
+                  deposited_currency: USDT
+                  received_currency: USDT
+                  status: COMPLETE
+                  external_order_id: null
+                  created_at: '2024-12-02 10:03:26'
+                  completed_at: '2024-12-02 10:21:32'
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/db1aab80-83ec-4566-9c81-6bfda1c53c4e
+                  successful_link: null
+                  failure_link: null
+                  transactions:
+                    - id: 9da0b0f6-b071-4166-aa23-7f17746afe52
+                      type: CRYPTO_INVOICE
+                      currency: USDT
+                      value: '10'
+                      status: COMPLETE
+                      hash: e82549fe-1a52-4db2-a2fe-f4a315a78d24
+                      is_internal: false
+                      created_at: '2024-12-02 10:21:32'
+                      completed_at: '2024-12-02 10:21:32'
+                      explorer_link: null
+  /private-api/refunds/orders/{orderID}:
+    post:
+      summary: POST /private-api/refunds/orders/{orderID}
+      parameters:
+        - name: orderID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: PayPlay order id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      currency:
+                        type: string
+                      order_number:
+                        type: string
+                      value:
+                        type: string
+                      expected_amount:
+                        type: string
+                      received_total:
+                        type: string
+                      exchange_rate:
+                        type: string
+                      clean_exchange_rate:
+                        type: string
+                      is_internal:
+                        type: boolean
+                      deposited_currency:
+                        type: string
+                      received_currency:
+                        type: string
+                      status:
+                        type: string
+                      external_order_id:
+                        type: string
+                      created_at:
+                        type: string
+                      completed_at:
+                        type: string
+                      is_refund_available:
+                        type: boolean
+                      is_refunded:
+                        type: boolean
+                      acquiring_url:
+                        type: string
+                      successful_link:
+                        type: string
+                      failure_link:
+                        type: string
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            currency:
+                              type: string
+                            value:
+                              type: string
+                            status:
+                              type: string
+                            hash:
+                              type: string
+                            is_internal:
+                              type: boolean
+                            created_at:
+                              type: string
+                            completed_at:
+                              type: string
+                            explorer_link:
+                              type: string
+                          required:
+                            - id
+                            - type
+                            - currency
+                            - value
+                            - status
+                            - hash
+                            - is_internal
+                            - created_at
+                            - completed_at
+                            - explorer_link
+                    required:
+                      - id
+                      - currency
+                      - order_number
+                      - value
+                      - expected_amount
+                      - received_total
+                      - exchange_rate
+                      - clean_exchange_rate
+                      - is_internal
+                      - deposited_currency
+                      - received_currency
+                      - status
+                      - external_order_id
+                      - created_at
+                      - completed_at
+                      - is_refund_available
+                      - is_refunded
+                      - acquiring_url
+                      - successful_link
+                      - failure_link
+                      - transactions
+                required:
+                  - order
+              example:
+                order:
+                  id: 87629677-4b8b-4cd4-9bc4-d39299a73bf1
+                  currency: USDT
+                  order_number: '557059248'
+                  value: '15'
+                  expected_amount: '15'
+                  received_total: '14.85'
+                  exchange_rate: '1'
+                  clean_exchange_rate: '1'
+                  is_internal: false
+                  deposited_currency: USDT
+                  received_currency: USDT
+                  status: COMPLETE
+                  external_order_id: null
+                  created_at: '2025-02-06 11:08:58'
+                  completed_at: '2025-02-06 11:10:21'
+                  is_refund_available: false
+                  is_refunded: false
+                  acquiring_url: https://merchant.pay.payplay.io/crypto-orders/87629677-4b8b-4cd4-9bc4-d39299a73bf1
+                  successful_link: null
+                  failure_link: null
+                  transactions:
+                    - id: 9e25875e-9dfe-4540-bce2-ee58ebcb35d6
+                      type: CRYPTO_INVOICE
+                      currency: USDT
+                      value: '15'
+                      status: COMPLETE
+                      hash: 85fa7d8e-a3f8-42d1-8304-3d3cf8645e48
+                      is_internal: false
+                      created_at: '2025-02-06 11:10:21'
+                      completed_at: '2025-02-06 11:10:21'
+                      explorer_link: null
+  /acquiring/{slug}/currencies:
+    get:
+      summary: GET /acquiring/{slug}/currencies
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        precision:
+                          type: number
+                        icon:
+                          type: string
+                        ticker:
+                          type: string
+                        is_fiat:
+                          type: boolean
+                        is_stable:
+                          type: boolean
+                        name:
+                          type: string
+                        limits:
+                          type: object
+                          properties:
+                            ERC20:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                            TON:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                            TRC20:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                          required:
+                            - ERC20
+                            - TON
+                            - TRC20
+                        min:
+                          type: string
+                        max:
+                          type: string
+                        preset_donation_values:
+                          type: array
+                          items:
+                            type: string
+                        networks:
+                          type: object
+                          properties:
+                            TRC20:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                            TON:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                            ERC20:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                          required:
+                            - TRC20
+                            - TON
+                            - ERC20
+                        exchange_rate:
+                          type: string
+                      required:
+                        - id
+                        - precision
+                        - icon
+                        - ticker
+                        - is_fiat
+                        - is_stable
+                        - name
+                        - limits
+                        - min
+                        - max
+                        - preset_donation_values
+                        - networks
+                        - exchange_rate
+                required:
+                  - currencies
+              example:
+                currencies:
+                  - id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                    precision: 2
+                    icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    ticker: USDT
+                    is_fiat: false
+                    is_stable: true
+                    name: Tether US
+                    limits:
+                      ERC20:
+                        min: '5'
+                        max: null
+                      TON:
+                        min: '5'
+                        max: null
+                      TRC20:
+                        min: '5'
+                        max: null
+                    min: '5'
+                    max: '0'
+                    preset_donation_values:
+                      - '10.00000000000000000000'
+                      - '25.00000000000000000000'
+                      - '50.00000000000000000000'
+                      - '100.00000000000000000000'
+                    networks:
+                      TRC20:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '1'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                      TON:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '1'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                      ERC20:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '27.08'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                    exchange_rate: null
+  /acquiring/{slug}/pay:
+    post:
+      summary: POST /acquiring/{slug}/pay
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        precision:
+                          type: number
+                        icon:
+                          type: string
+                        ticker:
+                          type: string
+                        is_fiat:
+                          type: boolean
+                        is_stable:
+                          type: boolean
+                        name:
+                          type: string
+                        limits:
+                          type: object
+                          properties:
+                            ERC20:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                            TON:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                            TRC20:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                          required:
+                            - ERC20
+                            - TON
+                            - TRC20
+                        min:
+                          type: string
+                        max:
+                          type: string
+                        preset_donation_values:
+                          type: array
+                          items:
+                            type: string
+                        networks:
+                          type: object
+                          properties:
+                            TRC20:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                            TON:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                            ERC20:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                          required:
+                            - TRC20
+                            - TON
+                            - ERC20
+                        exchange_rate:
+                          type: string
+                      required:
+                        - id
+                        - precision
+                        - icon
+                        - ticker
+                        - is_fiat
+                        - is_stable
+                        - name
+                        - limits
+                        - min
+                        - max
+                        - preset_donation_values
+                        - networks
+                        - exchange_rate
+                required:
+                  - currencies
+              example:
+                currencies:
+                  - id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                    precision: 2
+                    icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    ticker: USDT
+                    is_fiat: false
+                    is_stable: true
+                    name: Tether US
+                    limits:
+                      ERC20:
+                        min: '5'
+                        max: null
+                      TON:
+                        min: '5'
+                        max: null
+                      TRC20:
+                        min: '5'
+                        max: null
+                    min: '5'
+                    max: '0'
+                    preset_donation_values:
+                      - '10.00000000000000000000'
+                      - '25.00000000000000000000'
+                      - '50.00000000000000000000'
+                      - '100.00000000000000000000'
+                    networks:
+                      TRC20:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '1'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                      TON:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '1'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                      ERC20:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '27.08'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                    exchange_rate: null
+  /acquiring/{slug}/order/{orderID}:
+    get:
+      summary: GET /acquiring/{slug}/order/{orderID}
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+        - name: orderID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: PayPlay internal order id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        precision:
+                          type: number
+                        icon:
+                          type: string
+                        ticker:
+                          type: string
+                        is_fiat:
+                          type: boolean
+                        is_stable:
+                          type: boolean
+                        name:
+                          type: string
+                        limits:
+                          type: object
+                          properties:
+                            ERC20:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                            TON:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                            TRC20:
+                              type: object
+                              properties:
+                                min:
+                                  type: string
+                                max:
+                                  type: string
+                              required:
+                                - min
+                                - max
+                          required:
+                            - ERC20
+                            - TON
+                            - TRC20
+                        min:
+                          type: string
+                        max:
+                          type: string
+                        preset_donation_values:
+                          type: array
+                          items:
+                            type: string
+                        networks:
+                          type: object
+                          properties:
+                            TRC20:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                            TON:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                            ERC20:
+                              type: object
+                              properties:
+                                min_amount:
+                                  type: string
+                                max_amount:
+                                  type: string
+                                fixed:
+                                  type: string
+                                flex:
+                                  type: object
+                                  properties:
+                                    min_fee:
+                                      type: string
+                                    max_fee:
+                                      type: string
+                                    percent:
+                                      type: string
+                                  required:
+                                    - min_fee
+                                    - max_fee
+                                    - percent
+                              required:
+                                - min_amount
+                                - max_amount
+                                - fixed
+                                - flex
+                          required:
+                            - TRC20
+                            - TON
+                            - ERC20
+                        exchange_rate:
+                          type: string
+                      required:
+                        - id
+                        - precision
+                        - icon
+                        - ticker
+                        - is_fiat
+                        - is_stable
+                        - name
+                        - limits
+                        - min
+                        - max
+                        - preset_donation_values
+                        - networks
+                        - exchange_rate
+                required:
+                  - currencies
+              example:
+                currencies:
+                  - id: d9da4bdc-1c0b-4835-8ec6-a7118247340f
+                    precision: 2
+                    icon: https://media.payplay.io/c9409283-ed01-436f-bb6d-8763ff06ba54/USDT-(2).svg
+                    ticker: USDT
+                    is_fiat: false
+                    is_stable: true
+                    name: Tether US
+                    limits:
+                      ERC20:
+                        min: '5'
+                        max: null
+                      TON:
+                        min: '5'
+                        max: null
+                      TRC20:
+                        min: '5'
+                        max: null
+                    min: '5'
+                    max: '0'
+                    preset_donation_values:
+                      - '10.00000000000000000000'
+                      - '25.00000000000000000000'
+                      - '50.00000000000000000000'
+                      - '100.00000000000000000000'
+                    networks:
+                      TRC20:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '1'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                      TON:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '1'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                      ERC20:
+                        min_amount: '5'
+                        max_amount: '0'
+                        fixed: '27.08'
+                        flex:
+                          min_fee: '0'
+                          max_fee: '0'
+                          percent: '0'
+                    exchange_rate: null
+  /private-api/{slug}/withdrawal:
+    post:
+      summary: POST /private-api/{slug}/withdrawal
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: unique instance name defined for the company.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request_id:
+                    type: string
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        currency:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            ticker:
+                              type: string
+                            is_fiat:
+                              type: boolean
+                            is_used_for_order_exchange:
+                              type: boolean
+                            icon:
+                              type: string
+                            precision:
+                              type: number
+                            title:
+                              type: string
+                          required:
+                            - id
+                            - ticker
+                            - is_fiat
+                            - is_used_for_order_exchange
+                            - icon
+                            - precision
+                            - title
+                        value:
+                          type: string
+                        status:
+                          type: string
+                        type:
+                          type: string
+                        network:
+                          type: string
+                        fee:
+                          type: string
+                        created_at:
+                          type: string
+                        completed_at:
+                          type: string
+                      required:
+                        - id
+                        - currency
+                        - value
+                        - status
+                        - type
+                        - network
+                        - fee
+                        - created_at
+                        - completed_at
+                required:
+                  - request_id
+                  - transactions
+              example:
+                request_id: '123'
+                transactions:
+                  - id: '123'
+                    currency:
+                      id: '123'
+                      ticker: USDT
+                      is_fiat: true
+                      is_used_for_order_exchange: true
+                      icon: https://icon.svg
+                      precision: 2
+                      title: Tether US
+                    value: '77'
+                    status: PENDING_WITHDRAWAL
+                    type: CRYPTO_WALLET
+                    network: null
+                    fee: '1'
+                    created_at: '2022-11-18 14:27:36'
+                    completed_at: null
+  /private-api/withdrawals/fees:
+    get:
+      summary: GET /private-api/withdrawals/fees
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request_id:
+                    type: string
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        currency:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            ticker:
+                              type: string
+                            is_fiat:
+                              type: boolean
+                            is_used_for_order_exchange:
+                              type: boolean
+                            icon:
+                              type: string
+                            precision:
+                              type: number
+                            title:
+                              type: string
+                          required:
+                            - id
+                            - ticker
+                            - is_fiat
+                            - is_used_for_order_exchange
+                            - icon
+                            - precision
+                            - title
+                        value:
+                          type: string
+                        status:
+                          type: string
+                        type:
+                          type: string
+                        network:
+                          type: string
+                        fee:
+                          type: string
+                        created_at:
+                          type: string
+                        completed_at:
+                          type: string
+                      required:
+                        - id
+                        - currency
+                        - value
+                        - status
+                        - type
+                        - network
+                        - fee
+                        - created_at
+                        - completed_at
+                required:
+                  - request_id
+                  - transactions
+              example:
+                request_id: '123'
+                transactions:
+                  - id: '123'
+                    currency:
+                      id: '123'
+                      ticker: USDT
+                      is_fiat: true
+                      is_used_for_order_exchange: true
+                      icon: https://icon.svg
+                      precision: 2
+                      title: Tether US
+                    value: '77'
+                    status: PENDING_WITHDRAWAL
+                    type: CRYPTO_WALLET
+                    network: null
+                    fee: '1'
+                    created_at: '2022-11-18 14:27:36'
+                    completed_at: null
+  /mass-payouts:
+    post:
+      summary: POST /mass-payouts
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request_id:
+                    type: string
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        currency:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            ticker:
+                              type: string
+                            is_fiat:
+                              type: boolean
+                            is_used_for_order_exchange:
+                              type: boolean
+                            icon:
+                              type: string
+                            precision:
+                              type: number
+                            title:
+                              type: string
+                          required:
+                            - id
+                            - ticker
+                            - is_fiat
+                            - is_used_for_order_exchange
+                            - icon
+                            - precision
+                            - title
+                        value:
+                          type: string
+                        status:
+                          type: string
+                        type:
+                          type: string
+                        network:
+                          type: string
+                        fee:
+                          type: string
+                        created_at:
+                          type: string
+                        completed_at:
+                          type: string
+                      required:
+                        - id
+                        - currency
+                        - value
+                        - status
+                        - type
+                        - network
+                        - fee
+                        - created_at
+                        - completed_at
+                required:
+                  - request_id
+                  - transactions
+              example:
+                request_id: '123'
+                transactions:
+                  - id: '123'
+                    currency:
+                      id: '123'
+                      ticker: USDT
+                      is_fiat: true
+                      is_used_for_order_exchange: true
+                      icon: https://icon.svg
+                      precision: 2
+                      title: Tether US
+                    value: '77'
+                    status: PENDING_WITHDRAWAL
+                    type: CRYPTO_WALLET
+                    network: null
+                    fee: '1'
+                    created_at: '2022-11-18 14:27:36'
+                    completed_at: null
