@@ -74,13 +74,7 @@ class DefaultApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'completeCryptoOrder' => [
-            'application/json',
-        ],
         'confirmConvertWithdrawal' => [
-            'application/json',
-        ],
-        'createAcquiring' => [
             'application/json',
         ],
         'createBalances' => [
@@ -89,73 +83,79 @@ class DefaultApi
         'createConvertWithdrawal' => [
             'application/json',
         ],
-        'createCryptoOrder' => [
+        'createCryptoOrders' => [
+            'application/json',
+        ],
+        'createCryptoOrdersComplete' => [
             'application/json',
         ],
         'createCryptoTopups' => [
             'application/json',
         ],
-        'createInstantConvertWithdrawal' => [
-            'application/json',
-        ],
         'createMassPayout' => [
             'application/json',
         ],
-        'createRefund' => [
+        'createRefundsOrders' => [
             'application/json',
         ],
         'createWithdrawal' => [
             'application/json',
         ],
-        'getAcquiringOrderID' => [
+        'getAcquiringCurrencies' => [
             'application/json',
         ],
-        'getBalanceBalanceID' => [
+        'getAcquiringOrder' => [
             'application/json',
         ],
-        'getBalanceBalances' => [
+        'getBalance' => [
             'application/json',
         ],
-        'getCryptoOrderOrderID' => [
+        'getBalances' => [
             'application/json',
         ],
-        'getCryptoOrderSlug' => [
+        'getConvertWithdrawalCurrencies' => [
             'application/json',
         ],
-        'getCurrenciesCryptoOrderTargetCurrencies' => [
+        'getCryptoOrder' => [
             'application/json',
         ],
-        'getCurrenciesCryptoTopupTargetCurrencies' => [
+        'getCryptoOrders' => [
             'application/json',
         ],
-        'getCurrenciesCurrencies' => [
+        'getCurrencyCryptoOrderTargetCurrencies' => [
             'application/json',
         ],
-        'getCurrenciesCurrencies1' => [
+        'getCurrencyCryptoTopupTargetCurrencies' => [
             'application/json',
         ],
-        'getExchangeRatesCurrencyTicker' => [
+        'getExchangeRate' => [
             'application/json',
         ],
-        'getOrderOrderId' => [
-            'application/json',
-        ],
-        'getOrderSlug' => [
+        'getOrder' => [
             'application/json',
         ],
         'getOrderStatuses' => [
             'application/json',
         ],
-        'getRateRates' => [
+        'getOrders' => [
             'application/json',
         ],
-        'getTransactionTransactionID' => [
+        'getRates' => [
             'application/json',
         ],
-        'getTransactionTransactions' => [
+        'getTransaction' => [
+            'application/json',
+        ],
+        'getTransactions' => [
             'application/json',
         ],
         'getWithdrawalFees' => [
+            'application/json',
+        ],
+        'instantConvertWithdrawal' => [
+            'application/json',
+        ],
+        'payAcquiring' => [
             'application/json',
         ],
         'refreshConvertWithdrawal' => [
@@ -210,298 +210,6 @@ class DefaultApi
     }
 
     /**
-     * Operation completeCryptoOrder
-     *
-     * POST /private-api/crypto-orders/{slug}/{orderID}/complete
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['completeCryptoOrder'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCryptoOrderSlug200Response
-     */
-    public function completeCryptoOrder($slug, $order_id, string $contentType = self::contentTypes['completeCryptoOrder'][0])
-    {
-        list($response) = $this->completeCryptoOrderWithHttpInfo($slug, $order_id, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation completeCryptoOrderWithHttpInfo
-     *
-     * POST /private-api/crypto-orders/{slug}/{orderID}/complete
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['completeCryptoOrder'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCryptoOrderSlug200Response, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function completeCryptoOrderWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['completeCryptoOrder'][0])
-    {
-        $request = $this->completeCryptoOrderRequest($slug, $order_id, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation completeCryptoOrderAsync
-     *
-     * POST /private-api/crypto-orders/{slug}/{orderID}/complete
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['completeCryptoOrder'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function completeCryptoOrderAsync($slug, $order_id, string $contentType = self::contentTypes['completeCryptoOrder'][0])
-    {
-        return $this->completeCryptoOrderAsyncWithHttpInfo($slug, $order_id, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation completeCryptoOrderAsyncWithHttpInfo
-     *
-     * POST /private-api/crypto-orders/{slug}/{orderID}/complete
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['completeCryptoOrder'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function completeCryptoOrderAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['completeCryptoOrder'][0])
-    {
-        $returnType = '\PayPlayClient\Model\GetCryptoOrderSlug200Response';
-        $request = $this->completeCryptoOrderRequest($slug, $order_id, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'completeCryptoOrder'
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['completeCryptoOrder'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function completeCryptoOrderRequest($slug, $order_id, string $contentType = self::contentTypes['completeCryptoOrder'][0])
-    {
-
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling completeCryptoOrder'
-            );
-        }
-
-        // verify the required parameter 'order_id' is set
-        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $order_id when calling completeCryptoOrder'
-            );
-        }
-
-
-        $resourcePath = '/private-api/crypto-orders/{slug}/{orderID}/complete';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($slug !== null) {
-            $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($order_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'orderID' . '}',
-                ObjectSerializer::toPathValue($order_id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation confirmConvertWithdrawal
      *
      * POST /private-api/convert-withdrawal/{transactionID}/confirm
@@ -511,7 +219,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCurrenciesCurrencies200Response
+     * @return \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
      */
     public function confirmConvertWithdrawal($transaction_id, string $contentType = self::contentTypes['confirmConvertWithdrawal'][0])
     {
@@ -529,7 +237,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCurrenciesCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function confirmConvertWithdrawalWithHttpInfo($transaction_id, string $contentType = self::contentTypes['confirmConvertWithdrawal'][0])
     {
@@ -561,7 +269,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                         $request,
                         $response,
                     );
@@ -583,7 +291,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                 $request,
                 $response,
             );
@@ -592,7 +300,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -638,7 +346,7 @@ class DefaultApi
      */
     public function confirmConvertWithdrawalAsyncWithHttpInfo($transaction_id, string $contentType = self::contentTypes['confirmConvertWithdrawal'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetCurrenciesCurrencies200Response';
+        $returnType = '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response';
         $request = $this->confirmConvertWithdrawalRequest($transaction_id, $contentType);
 
         return $this->client
@@ -774,278 +482,6 @@ class DefaultApi
     }
 
     /**
-     * Operation createAcquiring
-     *
-     * POST /acquiring/{slug}/pay
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createAcquiring'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCurrenciesCurrencies1200Response
-     */
-    public function createAcquiring($slug, string $contentType = self::contentTypes['createAcquiring'][0])
-    {
-        list($response) = $this->createAcquiringWithHttpInfo($slug, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation createAcquiringWithHttpInfo
-     *
-     * POST /acquiring/{slug}/pay
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createAcquiring'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCurrenciesCurrencies1200Response, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function createAcquiringWithHttpInfo($slug, string $contentType = self::contentTypes['createAcquiring'][0])
-    {
-        $request = $this->createAcquiringRequest($slug, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation createAcquiringAsync
-     *
-     * POST /acquiring/{slug}/pay
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createAcquiring'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function createAcquiringAsync($slug, string $contentType = self::contentTypes['createAcquiring'][0])
-    {
-        return $this->createAcquiringAsyncWithHttpInfo($slug, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation createAcquiringAsyncWithHttpInfo
-     *
-     * POST /acquiring/{slug}/pay
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createAcquiring'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function createAcquiringAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['createAcquiring'][0])
-    {
-        $returnType = '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response';
-        $request = $this->createAcquiringRequest($slug, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'createAcquiring'
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createAcquiring'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function createAcquiringRequest($slug, string $contentType = self::contentTypes['createAcquiring'][0])
-    {
-
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling createAcquiring'
-            );
-        }
-
-
-        $resourcePath = '/acquiring/{slug}/pay';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($slug !== null) {
-            $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation createBalances
      *
      * POST /private-api/balances/{balanceID}
@@ -1055,7 +491,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetBalanceBalances200Response
+     * @return \PayPlayClient\Model\GetBalances200Response
      */
     public function createBalances($balance_id, string $contentType = self::contentTypes['createBalances'][0])
     {
@@ -1073,7 +509,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetBalanceBalances200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetBalances200Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function createBalancesWithHttpInfo($balance_id, string $contentType = self::contentTypes['createBalances'][0])
     {
@@ -1105,7 +541,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetBalanceBalances200Response',
+                        '\PayPlayClient\Model\GetBalances200Response',
                         $request,
                         $response,
                     );
@@ -1127,7 +563,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetBalanceBalances200Response',
+                '\PayPlayClient\Model\GetBalances200Response',
                 $request,
                 $response,
             );
@@ -1136,7 +572,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetBalanceBalances200Response',
+                        '\PayPlayClient\Model\GetBalances200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1182,7 +618,7 @@ class DefaultApi
      */
     public function createBalancesAsyncWithHttpInfo($balance_id, string $contentType = self::contentTypes['createBalances'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetBalanceBalances200Response';
+        $returnType = '\PayPlayClient\Model\GetBalances200Response';
         $request = $this->createBalancesRequest($balance_id, $contentType);
 
         return $this->client
@@ -1333,7 +769,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCurrenciesCurrencies200Response
+     * @return \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
      */
     public function createConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['createConvertWithdrawal'][0])
     {
@@ -1357,7 +793,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCurrenciesCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function createConvertWithdrawalWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['createConvertWithdrawal'][0])
     {
@@ -1389,7 +825,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                         $request,
                         $response,
                     );
@@ -1411,7 +847,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                 $request,
                 $response,
             );
@@ -1420,7 +856,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1478,7 +914,7 @@ class DefaultApi
      */
     public function createConvertWithdrawalAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['createConvertWithdrawal'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetCurrenciesCurrencies200Response';
+        $returnType = '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response';
         $request = $this->createConvertWithdrawalRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
 
         return $this->client
@@ -1705,38 +1141,38 @@ class DefaultApi
     }
 
     /**
-     * Operation createCryptoOrder
+     * Operation createCryptoOrders
      *
      * POST /private-api/crypto-orders/{slug}
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrder'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrders'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCryptoOrderSlug200Response
+     * @return \PayPlayClient\Model\GetCryptoOrder200Response
      */
-    public function createCryptoOrder($slug, string $contentType = self::contentTypes['createCryptoOrder'][0])
+    public function createCryptoOrders($slug, string $contentType = self::contentTypes['createCryptoOrders'][0])
     {
-        list($response) = $this->createCryptoOrderWithHttpInfo($slug, $contentType);
+        list($response) = $this->createCryptoOrdersWithHttpInfo($slug, $contentType);
         return $response;
     }
 
     /**
-     * Operation createCryptoOrderWithHttpInfo
+     * Operation createCryptoOrdersWithHttpInfo
      *
      * POST /private-api/crypto-orders/{slug}
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrder'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrders'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCryptoOrderSlug200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetCryptoOrder200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createCryptoOrderWithHttpInfo($slug, string $contentType = self::contentTypes['createCryptoOrder'][0])
+    public function createCryptoOrdersWithHttpInfo($slug, string $contentType = self::contentTypes['createCryptoOrders'][0])
     {
-        $request = $this->createCryptoOrderRequest($slug, $contentType);
+        $request = $this->createCryptoOrdersRequest($slug, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1764,7 +1200,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
                         $request,
                         $response,
                     );
@@ -1786,7 +1222,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
+                '\PayPlayClient\Model\GetCryptoOrder200Response',
                 $request,
                 $response,
             );
@@ -1795,7 +1231,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1808,19 +1244,19 @@ class DefaultApi
     }
 
     /**
-     * Operation createCryptoOrderAsync
+     * Operation createCryptoOrdersAsync
      *
      * POST /private-api/crypto-orders/{slug}
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrder'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createCryptoOrderAsync($slug, string $contentType = self::contentTypes['createCryptoOrder'][0])
+    public function createCryptoOrdersAsync($slug, string $contentType = self::contentTypes['createCryptoOrders'][0])
     {
-        return $this->createCryptoOrderAsyncWithHttpInfo($slug, $contentType)
+        return $this->createCryptoOrdersAsyncWithHttpInfo($slug, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1829,20 +1265,20 @@ class DefaultApi
     }
 
     /**
-     * Operation createCryptoOrderAsyncWithHttpInfo
+     * Operation createCryptoOrdersAsyncWithHttpInfo
      *
      * POST /private-api/crypto-orders/{slug}
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrder'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createCryptoOrderAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['createCryptoOrder'][0])
+    public function createCryptoOrdersAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['createCryptoOrders'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetCryptoOrderSlug200Response';
-        $request = $this->createCryptoOrderRequest($slug, $contentType);
+        $returnType = '\PayPlayClient\Model\GetCryptoOrder200Response';
+        $request = $this->createCryptoOrdersRequest($slug, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1881,21 +1317,21 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'createCryptoOrder'
+     * Create request for operation 'createCryptoOrders'
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrder'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createCryptoOrderRequest($slug, string $contentType = self::contentTypes['createCryptoOrder'][0])
+    public function createCryptoOrdersRequest($slug, string $contentType = self::contentTypes['createCryptoOrders'][0])
     {
 
         // verify the required parameter 'slug' is set
         if ($slug === null || (is_array($slug) && count($slug) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling createCryptoOrder'
+                'Missing the required parameter $slug when calling createCryptoOrders'
             );
         }
 
@@ -1977,6 +1413,298 @@ class DefaultApi
     }
 
     /**
+     * Operation createCryptoOrdersComplete
+     *
+     * POST /private-api/crypto-orders/{slug}/{orderID}/complete
+     *
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrdersComplete'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \PayPlayClient\Model\GetCryptoOrder200Response
+     */
+    public function createCryptoOrdersComplete($slug, $order_id, string $contentType = self::contentTypes['createCryptoOrdersComplete'][0])
+    {
+        list($response) = $this->createCryptoOrdersCompleteWithHttpInfo($slug, $order_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation createCryptoOrdersCompleteWithHttpInfo
+     *
+     * POST /private-api/crypto-orders/{slug}/{orderID}/complete
+     *
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrdersComplete'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \PayPlayClient\Model\GetCryptoOrder200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createCryptoOrdersCompleteWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['createCryptoOrdersComplete'][0])
+    {
+        $request = $this->createCryptoOrdersCompleteRequest($slug, $order_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\PayPlayClient\Model\GetCryptoOrder200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createCryptoOrdersCompleteAsync
+     *
+     * POST /private-api/crypto-orders/{slug}/{orderID}/complete
+     *
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrdersComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createCryptoOrdersCompleteAsync($slug, $order_id, string $contentType = self::contentTypes['createCryptoOrdersComplete'][0])
+    {
+        return $this->createCryptoOrdersCompleteAsyncWithHttpInfo($slug, $order_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createCryptoOrdersCompleteAsyncWithHttpInfo
+     *
+     * POST /private-api/crypto-orders/{slug}/{orderID}/complete
+     *
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrdersComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createCryptoOrdersCompleteAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['createCryptoOrdersComplete'][0])
+    {
+        $returnType = '\PayPlayClient\Model\GetCryptoOrder200Response';
+        $request = $this->createCryptoOrdersCompleteRequest($slug, $order_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createCryptoOrdersComplete'
+     *
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCryptoOrdersComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createCryptoOrdersCompleteRequest($slug, $order_id, string $contentType = self::contentTypes['createCryptoOrdersComplete'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling createCryptoOrdersComplete'
+            );
+        }
+
+        // verify the required parameter 'order_id' is set
+        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $order_id when calling createCryptoOrdersComplete'
+            );
+        }
+
+
+        $resourcePath = '/private-api/crypto-orders/{slug}/{orderID}/complete';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($slug !== null) {
+            $resourcePath = str_replace(
+                '{' . 'slug' . '}',
+                ObjectSerializer::toPathValue($slug),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($order_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'orderID' . '}',
+                ObjectSerializer::toPathValue($order_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation createCryptoTopups
      *
      * POST /private-api/crypto-topups/{slug}
@@ -1986,7 +1714,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCryptoOrderSlug200Response
+     * @return \PayPlayClient\Model\GetCryptoOrder200Response
      */
     public function createCryptoTopups($slug, string $contentType = self::contentTypes['createCryptoTopups'][0])
     {
@@ -2004,7 +1732,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCryptoOrderSlug200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetCryptoOrder200Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function createCryptoTopupsWithHttpInfo($slug, string $contentType = self::contentTypes['createCryptoTopups'][0])
     {
@@ -2036,7 +1764,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
                         $request,
                         $response,
                     );
@@ -2058,7 +1786,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
+                '\PayPlayClient\Model\GetCryptoOrder200Response',
                 $request,
                 $response,
             );
@@ -2067,7 +1795,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2113,7 +1841,7 @@ class DefaultApi
      */
     public function createCryptoTopupsAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['createCryptoTopups'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetCryptoOrderSlug200Response';
+        $returnType = '\PayPlayClient\Model\GetCryptoOrder200Response';
         $request = $this->createCryptoTopupsRequest($slug, $contentType);
 
         return $this->client
@@ -2189,393 +1917,6 @@ class DefaultApi
                 $resourcePath
             );
         }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation createInstantConvertWithdrawal
-     *
-     * POST /private-api/convert-withdrawal/instant
-     *
-     * @param  mixed $currency the currency to be converted (required)
-     * @param  mixed $amount the amount in currency to be converted (required)
-     * @param  mixed $target_currency the currency into which the conversion will take place (required)
-     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
-     * @param  mixed $network crypto wallet network (required)
-     * @param  mixed|null $memo crypto wallet memo (optional)
-     * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createInstantConvertWithdrawal'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCurrenciesCurrencies200Response
-     */
-    public function createInstantConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['createInstantConvertWithdrawal'][0])
-    {
-        list($response) = $this->createInstantConvertWithdrawalWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation createInstantConvertWithdrawalWithHttpInfo
-     *
-     * POST /private-api/convert-withdrawal/instant
-     *
-     * @param  mixed $currency the currency to be converted (required)
-     * @param  mixed $amount the amount in currency to be converted (required)
-     * @param  mixed $target_currency the currency into which the conversion will take place (required)
-     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
-     * @param  mixed $network crypto wallet network (required)
-     * @param  mixed|null $memo crypto wallet memo (optional)
-     * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createInstantConvertWithdrawal'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCurrenciesCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function createInstantConvertWithdrawalWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['createInstantConvertWithdrawal'][0])
-    {
-        $request = $this->createInstantConvertWithdrawalRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation createInstantConvertWithdrawalAsync
-     *
-     * POST /private-api/convert-withdrawal/instant
-     *
-     * @param  mixed $currency the currency to be converted (required)
-     * @param  mixed $amount the amount in currency to be converted (required)
-     * @param  mixed $target_currency the currency into which the conversion will take place (required)
-     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
-     * @param  mixed $network crypto wallet network (required)
-     * @param  mixed|null $memo crypto wallet memo (optional)
-     * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createInstantConvertWithdrawal'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function createInstantConvertWithdrawalAsync($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['createInstantConvertWithdrawal'][0])
-    {
-        return $this->createInstantConvertWithdrawalAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation createInstantConvertWithdrawalAsyncWithHttpInfo
-     *
-     * POST /private-api/convert-withdrawal/instant
-     *
-     * @param  mixed $currency the currency to be converted (required)
-     * @param  mixed $amount the amount in currency to be converted (required)
-     * @param  mixed $target_currency the currency into which the conversion will take place (required)
-     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
-     * @param  mixed $network crypto wallet network (required)
-     * @param  mixed|null $memo crypto wallet memo (optional)
-     * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createInstantConvertWithdrawal'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function createInstantConvertWithdrawalAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['createInstantConvertWithdrawal'][0])
-    {
-        $returnType = '\PayPlayClient\Model\GetCurrenciesCurrencies200Response';
-        $request = $this->createInstantConvertWithdrawalRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'createInstantConvertWithdrawal'
-     *
-     * @param  mixed $currency the currency to be converted (required)
-     * @param  mixed $amount the amount in currency to be converted (required)
-     * @param  mixed $target_currency the currency into which the conversion will take place (required)
-     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
-     * @param  mixed $network crypto wallet network (required)
-     * @param  mixed|null $memo crypto wallet memo (optional)
-     * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createInstantConvertWithdrawal'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function createInstantConvertWithdrawalRequest($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['createInstantConvertWithdrawal'][0])
-    {
-
-        // verify the required parameter 'currency' is set
-        if ($currency === null || (is_array($currency) && count($currency) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $currency when calling createInstantConvertWithdrawal'
-            );
-        }
-
-        // verify the required parameter 'amount' is set
-        if ($amount === null || (is_array($amount) && count($amount) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $amount when calling createInstantConvertWithdrawal'
-            );
-        }
-
-        // verify the required parameter 'target_currency' is set
-        if ($target_currency === null || (is_array($target_currency) && count($target_currency) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $target_currency when calling createInstantConvertWithdrawal'
-            );
-        }
-
-        // verify the required parameter 'address' is set
-        if ($address === null || (is_array($address) && count($address) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $address when calling createInstantConvertWithdrawal'
-            );
-        }
-
-        // verify the required parameter 'network' is set
-        if ($network === null || (is_array($network) && count($network) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $network when calling createInstantConvertWithdrawal'
-            );
-        }
-
-
-
-
-        $resourcePath = '/private-api/convert-withdrawal/instant';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $currency,
-            'currency', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $amount,
-            'amount', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $target_currency,
-            'target_currency', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $address,
-            'address', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $network,
-            'network', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $memo,
-            'memo', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $external_id,
-            'external_id', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -2888,38 +2229,38 @@ class DefaultApi
     }
 
     /**
-     * Operation createRefund
+     * Operation createRefundsOrders
      *
      * POST /private-api/refunds/orders/{orderID}
      *
      * @param  string $order_id PayPlay order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefund'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefundsOrders'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\CreateRefund200Response
+     * @return \PayPlayClient\Model\CreateRefundsOrders200Response
      */
-    public function createRefund($order_id, string $contentType = self::contentTypes['createRefund'][0])
+    public function createRefundsOrders($order_id, string $contentType = self::contentTypes['createRefundsOrders'][0])
     {
-        list($response) = $this->createRefundWithHttpInfo($order_id, $contentType);
+        list($response) = $this->createRefundsOrdersWithHttpInfo($order_id, $contentType);
         return $response;
     }
 
     /**
-     * Operation createRefundWithHttpInfo
+     * Operation createRefundsOrdersWithHttpInfo
      *
      * POST /private-api/refunds/orders/{orderID}
      *
      * @param  string $order_id PayPlay order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefund'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefundsOrders'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\CreateRefund200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\CreateRefundsOrders200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createRefundWithHttpInfo($order_id, string $contentType = self::contentTypes['createRefund'][0])
+    public function createRefundsOrdersWithHttpInfo($order_id, string $contentType = self::contentTypes['createRefundsOrders'][0])
     {
-        $request = $this->createRefundRequest($order_id, $contentType);
+        $request = $this->createRefundsOrdersRequest($order_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2947,7 +2288,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\CreateRefund200Response',
+                        '\PayPlayClient\Model\CreateRefundsOrders200Response',
                         $request,
                         $response,
                     );
@@ -2969,7 +2310,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\CreateRefund200Response',
+                '\PayPlayClient\Model\CreateRefundsOrders200Response',
                 $request,
                 $response,
             );
@@ -2978,7 +2319,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\CreateRefund200Response',
+                        '\PayPlayClient\Model\CreateRefundsOrders200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2991,19 +2332,19 @@ class DefaultApi
     }
 
     /**
-     * Operation createRefundAsync
+     * Operation createRefundsOrdersAsync
      *
      * POST /private-api/refunds/orders/{orderID}
      *
      * @param  string $order_id PayPlay order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefund'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefundsOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createRefundAsync($order_id, string $contentType = self::contentTypes['createRefund'][0])
+    public function createRefundsOrdersAsync($order_id, string $contentType = self::contentTypes['createRefundsOrders'][0])
     {
-        return $this->createRefundAsyncWithHttpInfo($order_id, $contentType)
+        return $this->createRefundsOrdersAsyncWithHttpInfo($order_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3012,20 +2353,20 @@ class DefaultApi
     }
 
     /**
-     * Operation createRefundAsyncWithHttpInfo
+     * Operation createRefundsOrdersAsyncWithHttpInfo
      *
      * POST /private-api/refunds/orders/{orderID}
      *
      * @param  string $order_id PayPlay order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefund'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefundsOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createRefundAsyncWithHttpInfo($order_id, string $contentType = self::contentTypes['createRefund'][0])
+    public function createRefundsOrdersAsyncWithHttpInfo($order_id, string $contentType = self::contentTypes['createRefundsOrders'][0])
     {
-        $returnType = '\PayPlayClient\Model\CreateRefund200Response';
-        $request = $this->createRefundRequest($order_id, $contentType);
+        $returnType = '\PayPlayClient\Model\CreateRefundsOrders200Response';
+        $request = $this->createRefundsOrdersRequest($order_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3064,21 +2405,21 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'createRefund'
+     * Create request for operation 'createRefundsOrders'
      *
      * @param  string $order_id PayPlay order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefund'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createRefundsOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createRefundRequest($order_id, string $contentType = self::contentTypes['createRefund'][0])
+    public function createRefundsOrdersRequest($order_id, string $contentType = self::contentTypes['createRefundsOrders'][0])
     {
 
         // verify the required parameter 'order_id' is set
         if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $order_id when calling createRefund'
+                'Missing the required parameter $order_id when calling createRefundsOrders'
             );
         }
 
@@ -3432,40 +2773,38 @@ class DefaultApi
     }
 
     /**
-     * Operation getAcquiringOrderID
+     * Operation getAcquiringCurrencies
      *
-     * GET /acquiring/{slug}/order/{orderID}
+     * GET /acquiring/{slug}/currencies
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrderID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringCurrencies'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCurrenciesCurrencies1200Response
+     * @return \PayPlayClient\Model\GetAcquiringCurrencies200Response
      */
-    public function getAcquiringOrderID($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrderID'][0])
+    public function getAcquiringCurrencies($slug, string $contentType = self::contentTypes['getAcquiringCurrencies'][0])
     {
-        list($response) = $this->getAcquiringOrderIDWithHttpInfo($slug, $order_id, $contentType);
+        list($response) = $this->getAcquiringCurrenciesWithHttpInfo($slug, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAcquiringOrderIDWithHttpInfo
+     * Operation getAcquiringCurrenciesWithHttpInfo
      *
-     * GET /acquiring/{slug}/order/{orderID}
+     * GET /acquiring/{slug}/currencies
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrderID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringCurrencies'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCurrenciesCurrencies1200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetAcquiringCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAcquiringOrderIDWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrderID'][0])
+    public function getAcquiringCurrenciesWithHttpInfo($slug, string $contentType = self::contentTypes['getAcquiringCurrencies'][0])
     {
-        $request = $this->getAcquiringOrderIDRequest($slug, $order_id, $contentType);
+        $request = $this->getAcquiringCurrenciesRequest($slug, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3493,7 +2832,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
+                        '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
                         $request,
                         $response,
                     );
@@ -3515,7 +2854,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
+                '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
                 $request,
                 $response,
             );
@@ -3524,7 +2863,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
+                        '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3537,20 +2876,19 @@ class DefaultApi
     }
 
     /**
-     * Operation getAcquiringOrderIDAsync
+     * Operation getAcquiringCurrenciesAsync
      *
-     * GET /acquiring/{slug}/order/{orderID}
+     * GET /acquiring/{slug}/currencies
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrderID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringCurrencies'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAcquiringOrderIDAsync($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrderID'][0])
+    public function getAcquiringCurrenciesAsync($slug, string $contentType = self::contentTypes['getAcquiringCurrencies'][0])
     {
-        return $this->getAcquiringOrderIDAsyncWithHttpInfo($slug, $order_id, $contentType)
+        return $this->getAcquiringCurrenciesAsyncWithHttpInfo($slug, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3559,21 +2897,20 @@ class DefaultApi
     }
 
     /**
-     * Operation getAcquiringOrderIDAsyncWithHttpInfo
+     * Operation getAcquiringCurrenciesAsyncWithHttpInfo
      *
-     * GET /acquiring/{slug}/order/{orderID}
+     * GET /acquiring/{slug}/currencies
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrderID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringCurrencies'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAcquiringOrderIDAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrderID'][0])
+    public function getAcquiringCurrenciesAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getAcquiringCurrencies'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response';
-        $request = $this->getAcquiringOrderIDRequest($slug, $order_id, $contentType);
+        $returnType = '\PayPlayClient\Model\GetAcquiringCurrencies200Response';
+        $request = $this->getAcquiringCurrenciesRequest($slug, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3612,29 +2949,305 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getAcquiringOrderID'
+     * Create request for operation 'getAcquiringCurrencies'
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id PayPlay internal order id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrderID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringCurrencies'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAcquiringOrderIDRequest($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrderID'][0])
+    public function getAcquiringCurrenciesRequest($slug, string $contentType = self::contentTypes['getAcquiringCurrencies'][0])
     {
 
         // verify the required parameter 'slug' is set
         if ($slug === null || (is_array($slug) && count($slug) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling getAcquiringOrderID'
+                'Missing the required parameter $slug when calling getAcquiringCurrencies'
+            );
+        }
+
+
+        $resourcePath = '/acquiring/{slug}/currencies';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($slug !== null) {
+            $resourcePath = str_replace(
+                '{' . 'slug' . '}',
+                ObjectSerializer::toPathValue($slug),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getAcquiringOrder
+     *
+     * GET /acquiring/{slug}/order/{orderID}
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrder'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \PayPlayClient\Model\GetAcquiringCurrencies200Response
+     */
+    public function getAcquiringOrder($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrder'][0])
+    {
+        list($response) = $this->getAcquiringOrderWithHttpInfo($slug, $order_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAcquiringOrderWithHttpInfo
+     *
+     * GET /acquiring/{slug}/order/{orderID}
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrder'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \PayPlayClient\Model\GetAcquiringCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAcquiringOrderWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrder'][0])
+    {
+        $request = $this->getAcquiringOrderRequest($slug, $order_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAcquiringOrderAsync
+     *
+     * GET /acquiring/{slug}/order/{orderID}
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrder'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAcquiringOrderAsync($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrder'][0])
+    {
+        return $this->getAcquiringOrderAsyncWithHttpInfo($slug, $order_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAcquiringOrderAsyncWithHttpInfo
+     *
+     * GET /acquiring/{slug}/order/{orderID}
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrder'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAcquiringOrderAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrder'][0])
+    {
+        $returnType = '\PayPlayClient\Model\GetAcquiringCurrencies200Response';
+        $request = $this->getAcquiringOrderRequest($slug, $order_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAcquiringOrder'
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id PayPlay internal order id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAcquiringOrder'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAcquiringOrderRequest($slug, $order_id, string $contentType = self::contentTypes['getAcquiringOrder'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling getAcquiringOrder'
             );
         }
 
         // verify the required parameter 'order_id' is set
         if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $order_id when calling getAcquiringOrderID'
+                'Missing the required parameter $order_id when calling getAcquiringOrder'
             );
         }
 
@@ -3724,38 +3337,38 @@ class DefaultApi
     }
 
     /**
-     * Operation getBalanceBalanceID
+     * Operation getBalance
      *
      * GET /private-api/balances/{balanceID}
      *
      * @param  string $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalanceID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetBalanceBalances200Response
+     * @return \PayPlayClient\Model\GetBalances200Response
      */
-    public function getBalanceBalanceID($balance_id, string $contentType = self::contentTypes['getBalanceBalanceID'][0])
+    public function getBalance($balance_id, string $contentType = self::contentTypes['getBalance'][0])
     {
-        list($response) = $this->getBalanceBalanceIDWithHttpInfo($balance_id, $contentType);
+        list($response) = $this->getBalanceWithHttpInfo($balance_id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getBalanceBalanceIDWithHttpInfo
+     * Operation getBalanceWithHttpInfo
      *
      * GET /private-api/balances/{balanceID}
      *
      * @param  string $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalanceID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetBalanceBalances200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetBalances200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBalanceBalanceIDWithHttpInfo($balance_id, string $contentType = self::contentTypes['getBalanceBalanceID'][0])
+    public function getBalanceWithHttpInfo($balance_id, string $contentType = self::contentTypes['getBalance'][0])
     {
-        $request = $this->getBalanceBalanceIDRequest($balance_id, $contentType);
+        $request = $this->getBalanceRequest($balance_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3783,7 +3396,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetBalanceBalances200Response',
+                        '\PayPlayClient\Model\GetBalances200Response',
                         $request,
                         $response,
                     );
@@ -3805,7 +3418,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetBalanceBalances200Response',
+                '\PayPlayClient\Model\GetBalances200Response',
                 $request,
                 $response,
             );
@@ -3814,7 +3427,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetBalanceBalances200Response',
+                        '\PayPlayClient\Model\GetBalances200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3827,19 +3440,19 @@ class DefaultApi
     }
 
     /**
-     * Operation getBalanceBalanceIDAsync
+     * Operation getBalanceAsync
      *
      * GET /private-api/balances/{balanceID}
      *
      * @param  string $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalanceID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBalanceBalanceIDAsync($balance_id, string $contentType = self::contentTypes['getBalanceBalanceID'][0])
+    public function getBalanceAsync($balance_id, string $contentType = self::contentTypes['getBalance'][0])
     {
-        return $this->getBalanceBalanceIDAsyncWithHttpInfo($balance_id, $contentType)
+        return $this->getBalanceAsyncWithHttpInfo($balance_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3848,20 +3461,20 @@ class DefaultApi
     }
 
     /**
-     * Operation getBalanceBalanceIDAsyncWithHttpInfo
+     * Operation getBalanceAsyncWithHttpInfo
      *
      * GET /private-api/balances/{balanceID}
      *
      * @param  string $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalanceID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBalanceBalanceIDAsyncWithHttpInfo($balance_id, string $contentType = self::contentTypes['getBalanceBalanceID'][0])
+    public function getBalanceAsyncWithHttpInfo($balance_id, string $contentType = self::contentTypes['getBalance'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetBalanceBalances200Response';
-        $request = $this->getBalanceBalanceIDRequest($balance_id, $contentType);
+        $returnType = '\PayPlayClient\Model\GetBalances200Response';
+        $request = $this->getBalanceRequest($balance_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3900,21 +3513,21 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getBalanceBalanceID'
+     * Create request for operation 'getBalance'
      *
      * @param  string $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalanceID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getBalanceBalanceIDRequest($balance_id, string $contentType = self::contentTypes['getBalanceBalanceID'][0])
+    public function getBalanceRequest($balance_id, string $contentType = self::contentTypes['getBalance'][0])
     {
 
         // verify the required parameter 'balance_id' is set
         if ($balance_id === null || (is_array($balance_id) && count($balance_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $balance_id when calling getBalanceBalanceID'
+                'Missing the required parameter $balance_id when calling getBalance'
             );
         }
 
@@ -3996,38 +3609,38 @@ class DefaultApi
     }
 
     /**
-     * Operation getBalanceBalances
+     * Operation getBalances
      *
      * GET /private-api/balances/
      *
      * @param  mixed $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalances'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalances'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetBalanceBalances200Response
+     * @return \PayPlayClient\Model\GetBalances200Response
      */
-    public function getBalanceBalances($balance_id, string $contentType = self::contentTypes['getBalanceBalances'][0])
+    public function getBalances($balance_id, string $contentType = self::contentTypes['getBalances'][0])
     {
-        list($response) = $this->getBalanceBalancesWithHttpInfo($balance_id, $contentType);
+        list($response) = $this->getBalancesWithHttpInfo($balance_id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getBalanceBalancesWithHttpInfo
+     * Operation getBalancesWithHttpInfo
      *
      * GET /private-api/balances/
      *
      * @param  mixed $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalances'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalances'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetBalanceBalances200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetBalances200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBalanceBalancesWithHttpInfo($balance_id, string $contentType = self::contentTypes['getBalanceBalances'][0])
+    public function getBalancesWithHttpInfo($balance_id, string $contentType = self::contentTypes['getBalances'][0])
     {
-        $request = $this->getBalanceBalancesRequest($balance_id, $contentType);
+        $request = $this->getBalancesRequest($balance_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4055,7 +3668,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetBalanceBalances200Response',
+                        '\PayPlayClient\Model\GetBalances200Response',
                         $request,
                         $response,
                     );
@@ -4077,7 +3690,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetBalanceBalances200Response',
+                '\PayPlayClient\Model\GetBalances200Response',
                 $request,
                 $response,
             );
@@ -4086,7 +3699,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetBalanceBalances200Response',
+                        '\PayPlayClient\Model\GetBalances200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4099,19 +3712,19 @@ class DefaultApi
     }
 
     /**
-     * Operation getBalanceBalancesAsync
+     * Operation getBalancesAsync
      *
      * GET /private-api/balances/
      *
      * @param  mixed $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalances'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalances'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBalanceBalancesAsync($balance_id, string $contentType = self::contentTypes['getBalanceBalances'][0])
+    public function getBalancesAsync($balance_id, string $contentType = self::contentTypes['getBalances'][0])
     {
-        return $this->getBalanceBalancesAsyncWithHttpInfo($balance_id, $contentType)
+        return $this->getBalancesAsyncWithHttpInfo($balance_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4120,20 +3733,20 @@ class DefaultApi
     }
 
     /**
-     * Operation getBalanceBalancesAsyncWithHttpInfo
+     * Operation getBalancesAsyncWithHttpInfo
      *
      * GET /private-api/balances/
      *
      * @param  mixed $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalances'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalances'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBalanceBalancesAsyncWithHttpInfo($balance_id, string $contentType = self::contentTypes['getBalanceBalances'][0])
+    public function getBalancesAsyncWithHttpInfo($balance_id, string $contentType = self::contentTypes['getBalances'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetBalanceBalances200Response';
-        $request = $this->getBalanceBalancesRequest($balance_id, $contentType);
+        $returnType = '\PayPlayClient\Model\GetBalances200Response';
+        $request = $this->getBalancesRequest($balance_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4172,21 +3785,21 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getBalanceBalances'
+     * Create request for operation 'getBalances'
      *
      * @param  mixed $balance_id balance id in specified balance currency (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalanceBalances'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalances'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getBalanceBalancesRequest($balance_id, string $contentType = self::contentTypes['getBalanceBalances'][0])
+    public function getBalancesRequest($balance_id, string $contentType = self::contentTypes['getBalances'][0])
     {
 
         // verify the required parameter 'balance_id' is set
         if ($balance_id === null || (is_array($balance_id) && count($balance_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $balance_id when calling getBalanceBalances'
+                'Missing the required parameter $balance_id when calling getBalances'
             );
         }
 
@@ -4269,1117 +3882,7 @@ class DefaultApi
     }
 
     /**
-     * Operation getCryptoOrderOrderID
-     *
-     * GET /private-api/crypto-orders/{slug}/{orderID}
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderOrderID'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCryptoOrderSlug200Response
-     */
-    public function getCryptoOrderOrderID($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrderOrderID'][0])
-    {
-        list($response) = $this->getCryptoOrderOrderIDWithHttpInfo($slug, $order_id, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getCryptoOrderOrderIDWithHttpInfo
-     *
-     * GET /private-api/crypto-orders/{slug}/{orderID}
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderOrderID'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCryptoOrderSlug200Response, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCryptoOrderOrderIDWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrderOrderID'][0])
-    {
-        $request = $this->getCryptoOrderOrderIDRequest($slug, $order_id, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCryptoOrderOrderIDAsync
-     *
-     * GET /private-api/crypto-orders/{slug}/{orderID}
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderOrderID'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCryptoOrderOrderIDAsync($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrderOrderID'][0])
-    {
-        return $this->getCryptoOrderOrderIDAsyncWithHttpInfo($slug, $order_id, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCryptoOrderOrderIDAsyncWithHttpInfo
-     *
-     * GET /private-api/crypto-orders/{slug}/{orderID}
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderOrderID'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCryptoOrderOrderIDAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrderOrderID'][0])
-    {
-        $returnType = '\PayPlayClient\Model\GetCryptoOrderSlug200Response';
-        $request = $this->getCryptoOrderOrderIDRequest($slug, $order_id, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCryptoOrderOrderID'
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderOrderID'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCryptoOrderOrderIDRequest($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrderOrderID'][0])
-    {
-
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling getCryptoOrderOrderID'
-            );
-        }
-
-        // verify the required parameter 'order_id' is set
-        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $order_id when calling getCryptoOrderOrderID'
-            );
-        }
-
-
-        $resourcePath = '/private-api/crypto-orders/{slug}/{orderID}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($slug !== null) {
-            $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($order_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'orderID' . '}',
-                ObjectSerializer::toPathValue($order_id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getCryptoOrderSlug
-     *
-     * GET /private-api/crypto-orders/{slug}
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCryptoOrderSlug200Response
-     */
-    public function getCryptoOrderSlug($slug, string $contentType = self::contentTypes['getCryptoOrderSlug'][0])
-    {
-        list($response) = $this->getCryptoOrderSlugWithHttpInfo($slug, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getCryptoOrderSlugWithHttpInfo
-     *
-     * GET /private-api/crypto-orders/{slug}
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCryptoOrderSlug200Response, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCryptoOrderSlugWithHttpInfo($slug, string $contentType = self::contentTypes['getCryptoOrderSlug'][0])
-    {
-        $request = $this->getCryptoOrderSlugRequest($slug, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCryptoOrderSlugAsync
-     *
-     * GET /private-api/crypto-orders/{slug}
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCryptoOrderSlugAsync($slug, string $contentType = self::contentTypes['getCryptoOrderSlug'][0])
-    {
-        return $this->getCryptoOrderSlugAsyncWithHttpInfo($slug, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCryptoOrderSlugAsyncWithHttpInfo
-     *
-     * GET /private-api/crypto-orders/{slug}
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCryptoOrderSlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getCryptoOrderSlug'][0])
-    {
-        $returnType = '\PayPlayClient\Model\GetCryptoOrderSlug200Response';
-        $request = $this->getCryptoOrderSlugRequest($slug, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCryptoOrderSlug'
-     *
-     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCryptoOrderSlugRequest($slug, string $contentType = self::contentTypes['getCryptoOrderSlug'][0])
-    {
-
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling getCryptoOrderSlug'
-            );
-        }
-
-
-        $resourcePath = '/private-api/crypto-orders/{slug}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($slug !== null) {
-            $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getCurrenciesCryptoOrderTargetCurrencies
-     *
-     * GET /currencies/crypto-order-target-currencies
-     *
-     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  mixed $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCryptoOrderSlug200Response
-     */
-    public function getCurrenciesCryptoOrderTargetCurrencies($slug, $order_id, string $contentType = self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'][0])
-    {
-        list($response) = $this->getCurrenciesCryptoOrderTargetCurrenciesWithHttpInfo($slug, $order_id, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getCurrenciesCryptoOrderTargetCurrenciesWithHttpInfo
-     *
-     * GET /currencies/crypto-order-target-currencies
-     *
-     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  mixed $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCryptoOrderSlug200Response, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCurrenciesCryptoOrderTargetCurrenciesWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'][0])
-    {
-        $request = $this->getCurrenciesCryptoOrderTargetCurrenciesRequest($slug, $order_id, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCurrenciesCryptoOrderTargetCurrenciesAsync
-     *
-     * GET /currencies/crypto-order-target-currencies
-     *
-     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  mixed $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCurrenciesCryptoOrderTargetCurrenciesAsync($slug, $order_id, string $contentType = self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'][0])
-    {
-        return $this->getCurrenciesCryptoOrderTargetCurrenciesAsyncWithHttpInfo($slug, $order_id, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCurrenciesCryptoOrderTargetCurrenciesAsyncWithHttpInfo
-     *
-     * GET /currencies/crypto-order-target-currencies
-     *
-     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  mixed $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCurrenciesCryptoOrderTargetCurrenciesAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'][0])
-    {
-        $returnType = '\PayPlayClient\Model\GetCryptoOrderSlug200Response';
-        $request = $this->getCurrenciesCryptoOrderTargetCurrenciesRequest($slug, $order_id, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCurrenciesCryptoOrderTargetCurrencies'
-     *
-     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
-     * @param  mixed $order_id PayPlay internal order identifier (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCurrenciesCryptoOrderTargetCurrenciesRequest($slug, $order_id, string $contentType = self::contentTypes['getCurrenciesCryptoOrderTargetCurrencies'][0])
-    {
-
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling getCurrenciesCryptoOrderTargetCurrencies'
-            );
-        }
-
-        // verify the required parameter 'order_id' is set
-        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $order_id when calling getCurrenciesCryptoOrderTargetCurrencies'
-            );
-        }
-
-
-        $resourcePath = '/currencies/crypto-order-target-currencies';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $slug,
-            'slug', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $order_id,
-            'orderID', // param base name
-            'mixed', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getCurrenciesCryptoTopupTargetCurrencies
-     *
-     * GET /private-api/currencies/crypto-topup-target-currencies
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCryptoOrderSlug200Response
-     */
-    public function getCurrenciesCryptoTopupTargetCurrencies(string $contentType = self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'][0])
-    {
-        list($response) = $this->getCurrenciesCryptoTopupTargetCurrenciesWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getCurrenciesCryptoTopupTargetCurrenciesWithHttpInfo
-     *
-     * GET /private-api/currencies/crypto-topup-target-currencies
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCryptoOrderSlug200Response, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCurrenciesCryptoTopupTargetCurrenciesWithHttpInfo(string $contentType = self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'][0])
-    {
-        $request = $this->getCurrenciesCryptoTopupTargetCurrenciesRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCryptoOrderSlug200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCurrenciesCryptoTopupTargetCurrenciesAsync
-     *
-     * GET /private-api/currencies/crypto-topup-target-currencies
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCurrenciesCryptoTopupTargetCurrenciesAsync(string $contentType = self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'][0])
-    {
-        return $this->getCurrenciesCryptoTopupTargetCurrenciesAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCurrenciesCryptoTopupTargetCurrenciesAsyncWithHttpInfo
-     *
-     * GET /private-api/currencies/crypto-topup-target-currencies
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCurrenciesCryptoTopupTargetCurrenciesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'][0])
-    {
-        $returnType = '\PayPlayClient\Model\GetCryptoOrderSlug200Response';
-        $request = $this->getCurrenciesCryptoTopupTargetCurrenciesRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCurrenciesCryptoTopupTargetCurrencies'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCurrenciesCryptoTopupTargetCurrenciesRequest(string $contentType = self::contentTypes['getCurrenciesCryptoTopupTargetCurrencies'][0])
-    {
-
-
-        $resourcePath = '/private-api/currencies/crypto-topup-target-currencies';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getCurrenciesCurrencies
+     * Operation getConvertWithdrawalCurrencies
      *
      * GET /private-api/convert-withdrawal/currencies
      *
@@ -5390,20 +3893,20 @@ class DefaultApi
      * @param  mixed $network crypto wallet network (required)
      * @param  mixed|null $memo crypto wallet memo (optional)
      * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getConvertWithdrawalCurrencies'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCurrenciesCurrencies200Response
+     * @return \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
      */
-    public function getCurrenciesCurrencies($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getCurrenciesCurrencies'][0])
+    public function getConvertWithdrawalCurrencies($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getConvertWithdrawalCurrencies'][0])
     {
-        list($response) = $this->getCurrenciesCurrenciesWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
+        list($response) = $this->getConvertWithdrawalCurrenciesWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getCurrenciesCurrenciesWithHttpInfo
+     * Operation getConvertWithdrawalCurrenciesWithHttpInfo
      *
      * GET /private-api/convert-withdrawal/currencies
      *
@@ -5414,15 +3917,15 @@ class DefaultApi
      * @param  mixed $network crypto wallet network (required)
      * @param  mixed|null $memo crypto wallet memo (optional)
      * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getConvertWithdrawalCurrencies'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCurrenciesCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getCurrenciesCurrenciesWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getCurrenciesCurrencies'][0])
+    public function getConvertWithdrawalCurrenciesWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getConvertWithdrawalCurrencies'][0])
     {
-        $request = $this->getCurrenciesCurrenciesRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
+        $request = $this->getConvertWithdrawalCurrenciesRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5450,7 +3953,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                         $request,
                         $response,
                     );
@@ -5472,7 +3975,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                 $request,
                 $response,
             );
@@ -5481,7 +3984,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5494,7 +3997,7 @@ class DefaultApi
     }
 
     /**
-     * Operation getCurrenciesCurrenciesAsync
+     * Operation getConvertWithdrawalCurrenciesAsync
      *
      * GET /private-api/convert-withdrawal/currencies
      *
@@ -5505,14 +4008,14 @@ class DefaultApi
      * @param  mixed $network crypto wallet network (required)
      * @param  mixed|null $memo crypto wallet memo (optional)
      * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getConvertWithdrawalCurrencies'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCurrenciesCurrenciesAsync($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getCurrenciesCurrencies'][0])
+    public function getConvertWithdrawalCurrenciesAsync($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getConvertWithdrawalCurrencies'][0])
     {
-        return $this->getCurrenciesCurrenciesAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType)
+        return $this->getConvertWithdrawalCurrenciesAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5521,7 +4024,7 @@ class DefaultApi
     }
 
     /**
-     * Operation getCurrenciesCurrenciesAsyncWithHttpInfo
+     * Operation getConvertWithdrawalCurrenciesAsyncWithHttpInfo
      *
      * GET /private-api/convert-withdrawal/currencies
      *
@@ -5532,15 +4035,15 @@ class DefaultApi
      * @param  mixed $network crypto wallet network (required)
      * @param  mixed|null $memo crypto wallet memo (optional)
      * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getConvertWithdrawalCurrencies'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCurrenciesCurrenciesAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getCurrenciesCurrencies'][0])
+    public function getConvertWithdrawalCurrenciesAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getConvertWithdrawalCurrencies'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetCurrenciesCurrencies200Response';
-        $request = $this->getCurrenciesCurrenciesRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
+        $returnType = '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response';
+        $request = $this->getConvertWithdrawalCurrenciesRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5579,7 +4082,7 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getCurrenciesCurrencies'
+     * Create request for operation 'getConvertWithdrawalCurrencies'
      *
      * @param  mixed $currency the currency to be converted (required)
      * @param  mixed $amount the amount in currency to be converted (required)
@@ -5588,46 +4091,46 @@ class DefaultApi
      * @param  mixed $network crypto wallet network (required)
      * @param  mixed|null $memo crypto wallet memo (optional)
      * @param  mixed|null $external_id external id (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getConvertWithdrawalCurrencies'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getCurrenciesCurrenciesRequest($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getCurrenciesCurrencies'][0])
+    public function getConvertWithdrawalCurrenciesRequest($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['getConvertWithdrawalCurrencies'][0])
     {
 
         // verify the required parameter 'currency' is set
         if ($currency === null || (is_array($currency) && count($currency) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $currency when calling getCurrenciesCurrencies'
+                'Missing the required parameter $currency when calling getConvertWithdrawalCurrencies'
             );
         }
 
         // verify the required parameter 'amount' is set
         if ($amount === null || (is_array($amount) && count($amount) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $amount when calling getCurrenciesCurrencies'
+                'Missing the required parameter $amount when calling getConvertWithdrawalCurrencies'
             );
         }
 
         // verify the required parameter 'target_currency' is set
         if ($target_currency === null || (is_array($target_currency) && count($target_currency) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $target_currency when calling getCurrenciesCurrencies'
+                'Missing the required parameter $target_currency when calling getConvertWithdrawalCurrencies'
             );
         }
 
         // verify the required parameter 'address' is set
         if ($address === null || (is_array($address) && count($address) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $address when calling getCurrenciesCurrencies'
+                'Missing the required parameter $address when calling getConvertWithdrawalCurrencies'
             );
         }
 
         // verify the required parameter 'network' is set
         if ($network === null || (is_array($network) && count($network) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $network when calling getCurrenciesCurrencies'
+                'Missing the required parameter $network when calling getConvertWithdrawalCurrencies'
             );
         }
 
@@ -5766,38 +4269,38 @@ class DefaultApi
     }
 
     /**
-     * Operation getCurrenciesCurrencies1
+     * Operation getCryptoOrder
      *
-     * GET /acquiring/{slug}/currencies
+     * GET /private-api/crypto-orders/{slug}
      *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies1'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrder'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCurrenciesCurrencies1200Response
+     * @return \PayPlayClient\Model\GetCryptoOrder200Response
      */
-    public function getCurrenciesCurrencies1($slug, string $contentType = self::contentTypes['getCurrenciesCurrencies1'][0])
+    public function getCryptoOrder($slug, string $contentType = self::contentTypes['getCryptoOrder'][0])
     {
-        list($response) = $this->getCurrenciesCurrencies1WithHttpInfo($slug, $contentType);
+        list($response) = $this->getCryptoOrderWithHttpInfo($slug, $contentType);
         return $response;
     }
 
     /**
-     * Operation getCurrenciesCurrencies1WithHttpInfo
+     * Operation getCryptoOrderWithHttpInfo
      *
-     * GET /acquiring/{slug}/currencies
+     * GET /private-api/crypto-orders/{slug}
      *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies1'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrder'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCurrenciesCurrencies1200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetCryptoOrder200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getCurrenciesCurrencies1WithHttpInfo($slug, string $contentType = self::contentTypes['getCurrenciesCurrencies1'][0])
+    public function getCryptoOrderWithHttpInfo($slug, string $contentType = self::contentTypes['getCryptoOrder'][0])
     {
-        $request = $this->getCurrenciesCurrencies1Request($slug, $contentType);
+        $request = $this->getCryptoOrderRequest($slug, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5825,7 +4328,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
                         $request,
                         $response,
                     );
@@ -5847,7 +4350,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
+                '\PayPlayClient\Model\GetCryptoOrder200Response',
                 $request,
                 $response,
             );
@@ -5856,7 +4359,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response',
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5869,19 +4372,19 @@ class DefaultApi
     }
 
     /**
-     * Operation getCurrenciesCurrencies1Async
+     * Operation getCryptoOrderAsync
      *
-     * GET /acquiring/{slug}/currencies
+     * GET /private-api/crypto-orders/{slug}
      *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies1'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrder'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCurrenciesCurrencies1Async($slug, string $contentType = self::contentTypes['getCurrenciesCurrencies1'][0])
+    public function getCryptoOrderAsync($slug, string $contentType = self::contentTypes['getCryptoOrder'][0])
     {
-        return $this->getCurrenciesCurrencies1AsyncWithHttpInfo($slug, $contentType)
+        return $this->getCryptoOrderAsyncWithHttpInfo($slug, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5890,20 +4393,20 @@ class DefaultApi
     }
 
     /**
-     * Operation getCurrenciesCurrencies1AsyncWithHttpInfo
+     * Operation getCryptoOrderAsyncWithHttpInfo
      *
-     * GET /acquiring/{slug}/currencies
+     * GET /private-api/crypto-orders/{slug}
      *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies1'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrder'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCurrenciesCurrencies1AsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getCurrenciesCurrencies1'][0])
+    public function getCryptoOrderAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getCryptoOrder'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetCurrenciesCurrencies1200Response';
-        $request = $this->getCurrenciesCurrencies1Request($slug, $contentType);
+        $returnType = '\PayPlayClient\Model\GetCryptoOrder200Response';
+        $request = $this->getCryptoOrderRequest($slug, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5942,26 +4445,26 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getCurrenciesCurrencies1'
+     * Create request for operation 'getCryptoOrder'
      *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrenciesCurrencies1'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrder'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getCurrenciesCurrencies1Request($slug, string $contentType = self::contentTypes['getCurrenciesCurrencies1'][0])
+    public function getCryptoOrderRequest($slug, string $contentType = self::contentTypes['getCryptoOrder'][0])
     {
 
         // verify the required parameter 'slug' is set
         if ($slug === null || (is_array($slug) && count($slug) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling getCurrenciesCurrencies1'
+                'Missing the required parameter $slug when calling getCryptoOrder'
             );
         }
 
 
-        $resourcePath = '/acquiring/{slug}/currencies';
+        $resourcePath = '/private-api/crypto-orders/{slug}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6038,38 +4541,40 @@ class DefaultApi
     }
 
     /**
-     * Operation getExchangeRatesCurrencyTicker
+     * Operation getCryptoOrders
      *
-     * GET /private-api/exchange-rates/{currencyTicker}
+     * GET /private-api/crypto-orders/{slug}/{orderID}
      *
-     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRatesCurrencyTicker'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrders'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetOrderOrderId200Response
+     * @return \PayPlayClient\Model\GetCryptoOrder200Response
      */
-    public function getExchangeRatesCurrencyTicker($currency_ticker, string $contentType = self::contentTypes['getExchangeRatesCurrencyTicker'][0])
+    public function getCryptoOrders($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrders'][0])
     {
-        list($response) = $this->getExchangeRatesCurrencyTickerWithHttpInfo($currency_ticker, $contentType);
+        list($response) = $this->getCryptoOrdersWithHttpInfo($slug, $order_id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getExchangeRatesCurrencyTickerWithHttpInfo
+     * Operation getCryptoOrdersWithHttpInfo
      *
-     * GET /private-api/exchange-rates/{currencyTicker}
+     * GET /private-api/crypto-orders/{slug}/{orderID}
      *
-     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRatesCurrencyTicker'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrders'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetOrderOrderId200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetCryptoOrder200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getExchangeRatesCurrencyTickerWithHttpInfo($currency_ticker, string $contentType = self::contentTypes['getExchangeRatesCurrencyTicker'][0])
+    public function getCryptoOrdersWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrders'][0])
     {
-        $request = $this->getExchangeRatesCurrencyTickerRequest($currency_ticker, $contentType);
+        $request = $this->getCryptoOrdersRequest($slug, $order_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6097,7 +4602,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
                         $request,
                         $response,
                     );
@@ -6119,7 +4624,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetOrderOrderId200Response',
+                '\PayPlayClient\Model\GetCryptoOrder200Response',
                 $request,
                 $response,
             );
@@ -6128,7 +4633,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6141,19 +4646,20 @@ class DefaultApi
     }
 
     /**
-     * Operation getExchangeRatesCurrencyTickerAsync
+     * Operation getCryptoOrdersAsync
      *
-     * GET /private-api/exchange-rates/{currencyTicker}
+     * GET /private-api/crypto-orders/{slug}/{orderID}
      *
-     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRatesCurrencyTicker'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getExchangeRatesCurrencyTickerAsync($currency_ticker, string $contentType = self::contentTypes['getExchangeRatesCurrencyTicker'][0])
+    public function getCryptoOrdersAsync($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrders'][0])
     {
-        return $this->getExchangeRatesCurrencyTickerAsyncWithHttpInfo($currency_ticker, $contentType)
+        return $this->getCryptoOrdersAsyncWithHttpInfo($slug, $order_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6162,20 +4668,21 @@ class DefaultApi
     }
 
     /**
-     * Operation getExchangeRatesCurrencyTickerAsyncWithHttpInfo
+     * Operation getCryptoOrdersAsyncWithHttpInfo
      *
-     * GET /private-api/exchange-rates/{currencyTicker}
+     * GET /private-api/crypto-orders/{slug}/{orderID}
      *
-     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRatesCurrencyTicker'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getExchangeRatesCurrencyTickerAsyncWithHttpInfo($currency_ticker, string $contentType = self::contentTypes['getExchangeRatesCurrencyTicker'][0])
+    public function getCryptoOrdersAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrders'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetOrderOrderId200Response';
-        $request = $this->getExchangeRatesCurrencyTickerRequest($currency_ticker, $contentType);
+        $returnType = '\PayPlayClient\Model\GetCryptoOrder200Response';
+        $request = $this->getCryptoOrdersRequest($slug, $order_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6214,21 +4721,855 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getExchangeRatesCurrencyTicker'
+     * Create request for operation 'getCryptoOrders'
      *
-     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRatesCurrencyTicker'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCryptoOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getExchangeRatesCurrencyTickerRequest($currency_ticker, string $contentType = self::contentTypes['getExchangeRatesCurrencyTicker'][0])
+    public function getCryptoOrdersRequest($slug, $order_id, string $contentType = self::contentTypes['getCryptoOrders'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling getCryptoOrders'
+            );
+        }
+
+        // verify the required parameter 'order_id' is set
+        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $order_id when calling getCryptoOrders'
+            );
+        }
+
+
+        $resourcePath = '/private-api/crypto-orders/{slug}/{orderID}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($slug !== null) {
+            $resourcePath = str_replace(
+                '{' . 'slug' . '}',
+                ObjectSerializer::toPathValue($slug),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($order_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'orderID' . '}',
+                ObjectSerializer::toPathValue($order_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getCurrencyCryptoOrderTargetCurrencies
+     *
+     * GET /currencies/crypto-order-target-currencies
+     *
+     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  mixed $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \PayPlayClient\Model\GetCryptoOrder200Response
+     */
+    public function getCurrencyCryptoOrderTargetCurrencies($slug, $order_id, string $contentType = self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'][0])
+    {
+        list($response) = $this->getCurrencyCryptoOrderTargetCurrenciesWithHttpInfo($slug, $order_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getCurrencyCryptoOrderTargetCurrenciesWithHttpInfo
+     *
+     * GET /currencies/crypto-order-target-currencies
+     *
+     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  mixed $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \PayPlayClient\Model\GetCryptoOrder200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getCurrencyCryptoOrderTargetCurrenciesWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'][0])
+    {
+        $request = $this->getCurrencyCryptoOrderTargetCurrenciesRequest($slug, $order_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\PayPlayClient\Model\GetCryptoOrder200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getCurrencyCryptoOrderTargetCurrenciesAsync
+     *
+     * GET /currencies/crypto-order-target-currencies
+     *
+     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  mixed $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCurrencyCryptoOrderTargetCurrenciesAsync($slug, $order_id, string $contentType = self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'][0])
+    {
+        return $this->getCurrencyCryptoOrderTargetCurrenciesAsyncWithHttpInfo($slug, $order_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getCurrencyCryptoOrderTargetCurrenciesAsyncWithHttpInfo
+     *
+     * GET /currencies/crypto-order-target-currencies
+     *
+     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  mixed $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCurrencyCryptoOrderTargetCurrenciesAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'][0])
+    {
+        $returnType = '\PayPlayClient\Model\GetCryptoOrder200Response';
+        $request = $this->getCurrencyCryptoOrderTargetCurrenciesRequest($slug, $order_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getCurrencyCryptoOrderTargetCurrencies'
+     *
+     * @param  mixed $slug unique instance name defined for payment page. Can be found on each payment page settings page in CRM. (required)
+     * @param  mixed $order_id PayPlay internal order identifier (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getCurrencyCryptoOrderTargetCurrenciesRequest($slug, $order_id, string $contentType = self::contentTypes['getCurrencyCryptoOrderTargetCurrencies'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling getCurrencyCryptoOrderTargetCurrencies'
+            );
+        }
+
+        // verify the required parameter 'order_id' is set
+        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $order_id when calling getCurrencyCryptoOrderTargetCurrencies'
+            );
+        }
+
+
+        $resourcePath = '/currencies/crypto-order-target-currencies';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $slug,
+            'slug', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $order_id,
+            'orderID', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getCurrencyCryptoTopupTargetCurrencies
+     *
+     * GET /private-api/currencies/crypto-topup-target-currencies
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \PayPlayClient\Model\GetCryptoOrder200Response
+     */
+    public function getCurrencyCryptoTopupTargetCurrencies(string $contentType = self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'][0])
+    {
+        list($response) = $this->getCurrencyCryptoTopupTargetCurrenciesWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getCurrencyCryptoTopupTargetCurrenciesWithHttpInfo
+     *
+     * GET /private-api/currencies/crypto-topup-target-currencies
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \PayPlayClient\Model\GetCryptoOrder200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getCurrencyCryptoTopupTargetCurrenciesWithHttpInfo(string $contentType = self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'][0])
+    {
+        $request = $this->getCurrencyCryptoTopupTargetCurrenciesRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\PayPlayClient\Model\GetCryptoOrder200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PayPlayClient\Model\GetCryptoOrder200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getCurrencyCryptoTopupTargetCurrenciesAsync
+     *
+     * GET /private-api/currencies/crypto-topup-target-currencies
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCurrencyCryptoTopupTargetCurrenciesAsync(string $contentType = self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'][0])
+    {
+        return $this->getCurrencyCryptoTopupTargetCurrenciesAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getCurrencyCryptoTopupTargetCurrenciesAsyncWithHttpInfo
+     *
+     * GET /private-api/currencies/crypto-topup-target-currencies
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCurrencyCryptoTopupTargetCurrenciesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'][0])
+    {
+        $returnType = '\PayPlayClient\Model\GetCryptoOrder200Response';
+        $request = $this->getCurrencyCryptoTopupTargetCurrenciesRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getCurrencyCryptoTopupTargetCurrencies'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getCurrencyCryptoTopupTargetCurrenciesRequest(string $contentType = self::contentTypes['getCurrencyCryptoTopupTargetCurrencies'][0])
+    {
+
+
+        $resourcePath = '/private-api/currencies/crypto-topup-target-currencies';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getExchangeRate
+     *
+     * GET /private-api/exchange-rates/{currencyTicker}
+     *
+     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRate'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \PayPlayClient\Model\GetOrders200Response
+     */
+    public function getExchangeRate($currency_ticker, string $contentType = self::contentTypes['getExchangeRate'][0])
+    {
+        list($response) = $this->getExchangeRateWithHttpInfo($currency_ticker, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getExchangeRateWithHttpInfo
+     *
+     * GET /private-api/exchange-rates/{currencyTicker}
+     *
+     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRate'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \PayPlayClient\Model\GetOrders200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getExchangeRateWithHttpInfo($currency_ticker, string $contentType = self::contentTypes['getExchangeRate'][0])
+    {
+        $request = $this->getExchangeRateRequest($currency_ticker, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\PayPlayClient\Model\GetOrders200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\PayPlayClient\Model\GetOrders200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PayPlayClient\Model\GetOrders200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getExchangeRateAsync
+     *
+     * GET /private-api/exchange-rates/{currencyTicker}
+     *
+     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getExchangeRateAsync($currency_ticker, string $contentType = self::contentTypes['getExchangeRate'][0])
+    {
+        return $this->getExchangeRateAsyncWithHttpInfo($currency_ticker, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getExchangeRateAsyncWithHttpInfo
+     *
+     * GET /private-api/exchange-rates/{currencyTicker}
+     *
+     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getExchangeRateAsyncWithHttpInfo($currency_ticker, string $contentType = self::contentTypes['getExchangeRate'][0])
+    {
+        $returnType = '\PayPlayClient\Model\GetOrders200Response';
+        $request = $this->getExchangeRateRequest($currency_ticker, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getExchangeRate'
+     *
+     * @param  string $currency_ticker The currencyTicker parameter in the URL path (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExchangeRate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getExchangeRateRequest($currency_ticker, string $contentType = self::contentTypes['getExchangeRate'][0])
     {
 
         // verify the required parameter 'currency_ticker' is set
         if ($currency_ticker === null || (is_array($currency_ticker) && count($currency_ticker) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $currency_ticker when calling getExchangeRatesCurrencyTicker'
+                'Missing the required parameter $currency_ticker when calling getExchangeRate'
             );
         }
 
@@ -6310,40 +5651,38 @@ class DefaultApi
     }
 
     /**
-     * Operation getOrderOrderId
+     * Operation getOrder
      *
-     * GET /private-api/orders/{slug}/{orderId}
+     * GET /private-api/orders/{slug}
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderOrderId'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrder'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetOrderOrderId200Response
+     * @return \PayPlayClient\Model\GetOrders200Response
      */
-    public function getOrderOrderId($slug, $order_id, string $contentType = self::contentTypes['getOrderOrderId'][0])
+    public function getOrder($slug, string $contentType = self::contentTypes['getOrder'][0])
     {
-        list($response) = $this->getOrderOrderIdWithHttpInfo($slug, $order_id, $contentType);
+        list($response) = $this->getOrderWithHttpInfo($slug, $contentType);
         return $response;
     }
 
     /**
-     * Operation getOrderOrderIdWithHttpInfo
+     * Operation getOrderWithHttpInfo
      *
-     * GET /private-api/orders/{slug}/{orderId}
+     * GET /private-api/orders/{slug}
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderOrderId'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrder'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetOrderOrderId200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetOrders200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrderOrderIdWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getOrderOrderId'][0])
+    public function getOrderWithHttpInfo($slug, string $contentType = self::contentTypes['getOrder'][0])
     {
-        $request = $this->getOrderOrderIdRequest($slug, $order_id, $contentType);
+        $request = $this->getOrderRequest($slug, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6371,7 +5710,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $request,
                         $response,
                     );
@@ -6393,7 +5732,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetOrderOrderId200Response',
+                '\PayPlayClient\Model\GetOrders200Response',
                 $request,
                 $response,
             );
@@ -6402,7 +5741,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6415,20 +5754,19 @@ class DefaultApi
     }
 
     /**
-     * Operation getOrderOrderIdAsync
+     * Operation getOrderAsync
      *
-     * GET /private-api/orders/{slug}/{orderId}
+     * GET /private-api/orders/{slug}
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderOrderId'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrder'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrderOrderIdAsync($slug, $order_id, string $contentType = self::contentTypes['getOrderOrderId'][0])
+    public function getOrderAsync($slug, string $contentType = self::contentTypes['getOrder'][0])
     {
-        return $this->getOrderOrderIdAsyncWithHttpInfo($slug, $order_id, $contentType)
+        return $this->getOrderAsyncWithHttpInfo($slug, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6437,21 +5775,20 @@ class DefaultApi
     }
 
     /**
-     * Operation getOrderOrderIdAsyncWithHttpInfo
+     * Operation getOrderAsyncWithHttpInfo
      *
-     * GET /private-api/orders/{slug}/{orderId}
+     * GET /private-api/orders/{slug}
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderOrderId'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrder'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrderOrderIdAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getOrderOrderId'][0])
+    public function getOrderAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getOrder'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetOrderOrderId200Response';
-        $request = $this->getOrderOrderIdRequest($slug, $order_id, $contentType);
+        $returnType = '\PayPlayClient\Model\GetOrders200Response';
+        $request = $this->getOrderRequest($slug, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6490,309 +5827,21 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getOrderOrderId'
+     * Create request for operation 'getOrder'
      *
      * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $order_id unique identifier of order (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderOrderId'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrder'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getOrderOrderIdRequest($slug, $order_id, string $contentType = self::contentTypes['getOrderOrderId'][0])
+    public function getOrderRequest($slug, string $contentType = self::contentTypes['getOrder'][0])
     {
 
         // verify the required parameter 'slug' is set
         if ($slug === null || (is_array($slug) && count($slug) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling getOrderOrderId'
-            );
-        }
-
-        // verify the required parameter 'order_id' is set
-        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $order_id when calling getOrderOrderId'
-            );
-        }
-
-
-        $resourcePath = '/private-api/orders/{slug}/{orderId}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($slug !== null) {
-            $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($order_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'orderId' . '}',
-                ObjectSerializer::toPathValue($order_id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getOrderSlug
-     *
-     * GET /private-api/orders/{slug}
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetOrderOrderId200Response
-     */
-    public function getOrderSlug($slug, string $contentType = self::contentTypes['getOrderSlug'][0])
-    {
-        list($response) = $this->getOrderSlugWithHttpInfo($slug, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getOrderSlugWithHttpInfo
-     *
-     * GET /private-api/orders/{slug}
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetOrderOrderId200Response, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getOrderSlugWithHttpInfo($slug, string $contentType = self::contentTypes['getOrderSlug'][0])
-    {
-        $request = $this->getOrderSlugRequest($slug, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetOrderOrderId200Response',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getOrderSlugAsync
-     *
-     * GET /private-api/orders/{slug}
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getOrderSlugAsync($slug, string $contentType = self::contentTypes['getOrderSlug'][0])
-    {
-        return $this->getOrderSlugAsyncWithHttpInfo($slug, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getOrderSlugAsyncWithHttpInfo
-     *
-     * GET /private-api/orders/{slug}
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getOrderSlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getOrderSlug'][0])
-    {
-        $returnType = '\PayPlayClient\Model\GetOrderOrderId200Response';
-        $request = $this->getOrderSlugRequest($slug, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getOrderSlug'
-     *
-     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrderSlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getOrderSlugRequest($slug, string $contentType = self::contentTypes['getOrderSlug'][0])
-    {
-
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling getOrderSlug'
+                'Missing the required parameter $slug when calling getOrder'
             );
         }
 
@@ -6883,7 +5932,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetOrderOrderId200Response
+     * @return \PayPlayClient\Model\GetOrders200Response
      */
     public function getOrderStatuses($transaction_id, string $contentType = self::contentTypes['getOrderStatuses'][0])
     {
@@ -6901,7 +5950,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetOrderOrderId200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetOrders200Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function getOrderStatusesWithHttpInfo($transaction_id, string $contentType = self::contentTypes['getOrderStatuses'][0])
     {
@@ -6933,7 +5982,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $request,
                         $response,
                     );
@@ -6955,7 +6004,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetOrderOrderId200Response',
+                '\PayPlayClient\Model\GetOrders200Response',
                 $request,
                 $response,
             );
@@ -6964,7 +6013,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7010,7 +6059,7 @@ class DefaultApi
      */
     public function getOrderStatusesAsyncWithHttpInfo($transaction_id, string $contentType = self::contentTypes['getOrderStatuses'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetOrderOrderId200Response';
+        $returnType = '\PayPlayClient\Model\GetOrders200Response';
         $request = $this->getOrderStatusesRequest($transaction_id, $contentType);
 
         return $this->client
@@ -7147,36 +6196,40 @@ class DefaultApi
     }
 
     /**
-     * Operation getRateRates
+     * Operation getOrders
      *
-     * GET /rates
+     * GET /private-api/orders/{slug}/{orderId}
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRateRates'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrders'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetOrderOrderId200Response
+     * @return \PayPlayClient\Model\GetOrders200Response
      */
-    public function getRateRates(string $contentType = self::contentTypes['getRateRates'][0])
+    public function getOrders($slug, $order_id, string $contentType = self::contentTypes['getOrders'][0])
     {
-        list($response) = $this->getRateRatesWithHttpInfo($contentType);
+        list($response) = $this->getOrdersWithHttpInfo($slug, $order_id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getRateRatesWithHttpInfo
+     * Operation getOrdersWithHttpInfo
      *
-     * GET /rates
+     * GET /private-api/orders/{slug}/{orderId}
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRateRates'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrders'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetOrderOrderId200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetOrders200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getRateRatesWithHttpInfo(string $contentType = self::contentTypes['getRateRates'][0])
+    public function getOrdersWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getOrders'][0])
     {
-        $request = $this->getRateRatesRequest($contentType);
+        $request = $this->getOrdersRequest($slug, $order_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7204,7 +6257,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $request,
                         $response,
                     );
@@ -7226,7 +6279,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetOrderOrderId200Response',
+                '\PayPlayClient\Model\GetOrders200Response',
                 $request,
                 $response,
             );
@@ -7235,7 +6288,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7248,18 +6301,20 @@ class DefaultApi
     }
 
     /**
-     * Operation getRateRatesAsync
+     * Operation getOrdersAsync
      *
-     * GET /rates
+     * GET /private-api/orders/{slug}/{orderId}
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRateRates'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getRateRatesAsync(string $contentType = self::contentTypes['getRateRates'][0])
+    public function getOrdersAsync($slug, $order_id, string $contentType = self::contentTypes['getOrders'][0])
     {
-        return $this->getRateRatesAsyncWithHttpInfo($contentType)
+        return $this->getOrdersAsyncWithHttpInfo($slug, $order_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7268,19 +6323,21 @@ class DefaultApi
     }
 
     /**
-     * Operation getRateRatesAsyncWithHttpInfo
+     * Operation getOrdersAsyncWithHttpInfo
      *
-     * GET /rates
+     * GET /private-api/orders/{slug}/{orderId}
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRateRates'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getRateRatesAsyncWithHttpInfo(string $contentType = self::contentTypes['getRateRates'][0])
+    public function getOrdersAsyncWithHttpInfo($slug, $order_id, string $contentType = self::contentTypes['getOrders'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetOrderOrderId200Response';
-        $request = $this->getRateRatesRequest($contentType);
+        $returnType = '\PayPlayClient\Model\GetOrders200Response';
+        $request = $this->getOrdersRequest($slug, $order_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7319,14 +6376,298 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getRateRates'
+     * Create request for operation 'getOrders'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRateRates'] to see the possible values for this operation
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $order_id unique identifier of order (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getRateRatesRequest(string $contentType = self::contentTypes['getRateRates'][0])
+    public function getOrdersRequest($slug, $order_id, string $contentType = self::contentTypes['getOrders'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling getOrders'
+            );
+        }
+
+        // verify the required parameter 'order_id' is set
+        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $order_id when calling getOrders'
+            );
+        }
+
+
+        $resourcePath = '/private-api/orders/{slug}/{orderId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($slug !== null) {
+            $resourcePath = str_replace(
+                '{' . 'slug' . '}',
+                ObjectSerializer::toPathValue($slug),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($order_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'orderId' . '}',
+                ObjectSerializer::toPathValue($order_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getRates
+     *
+     * GET /rates
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRates'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \PayPlayClient\Model\GetOrders200Response
+     */
+    public function getRates(string $contentType = self::contentTypes['getRates'][0])
+    {
+        list($response) = $this->getRatesWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getRatesWithHttpInfo
+     *
+     * GET /rates
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRates'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \PayPlayClient\Model\GetOrders200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getRatesWithHttpInfo(string $contentType = self::contentTypes['getRates'][0])
+    {
+        $request = $this->getRatesRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\PayPlayClient\Model\GetOrders200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\PayPlayClient\Model\GetOrders200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PayPlayClient\Model\GetOrders200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getRatesAsync
+     *
+     * GET /rates
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRates'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getRatesAsync(string $contentType = self::contentTypes['getRates'][0])
+    {
+        return $this->getRatesAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getRatesAsyncWithHttpInfo
+     *
+     * GET /rates
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRates'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getRatesAsyncWithHttpInfo(string $contentType = self::contentTypes['getRates'][0])
+    {
+        $returnType = '\PayPlayClient\Model\GetOrders200Response';
+        $request = $this->getRatesRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getRates'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRates'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getRatesRequest(string $contentType = self::contentTypes['getRates'][0])
     {
 
 
@@ -7399,38 +6740,38 @@ class DefaultApi
     }
 
     /**
-     * Operation getTransactionTransactionID
+     * Operation getTransaction
      *
      * GET /private-api/transactions/{transactionID}
      *
      * @param  string $transaction_id PayPlay internal transaction id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactionID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransaction'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetOrderOrderId200Response
+     * @return \PayPlayClient\Model\GetOrders200Response
      */
-    public function getTransactionTransactionID($transaction_id, string $contentType = self::contentTypes['getTransactionTransactionID'][0])
+    public function getTransaction($transaction_id, string $contentType = self::contentTypes['getTransaction'][0])
     {
-        list($response) = $this->getTransactionTransactionIDWithHttpInfo($transaction_id, $contentType);
+        list($response) = $this->getTransactionWithHttpInfo($transaction_id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getTransactionTransactionIDWithHttpInfo
+     * Operation getTransactionWithHttpInfo
      *
      * GET /private-api/transactions/{transactionID}
      *
      * @param  string $transaction_id PayPlay internal transaction id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactionID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransaction'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetOrderOrderId200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetOrders200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTransactionTransactionIDWithHttpInfo($transaction_id, string $contentType = self::contentTypes['getTransactionTransactionID'][0])
+    public function getTransactionWithHttpInfo($transaction_id, string $contentType = self::contentTypes['getTransaction'][0])
     {
-        $request = $this->getTransactionTransactionIDRequest($transaction_id, $contentType);
+        $request = $this->getTransactionRequest($transaction_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7458,7 +6799,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $request,
                         $response,
                     );
@@ -7480,7 +6821,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetOrderOrderId200Response',
+                '\PayPlayClient\Model\GetOrders200Response',
                 $request,
                 $response,
             );
@@ -7489,7 +6830,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7502,19 +6843,19 @@ class DefaultApi
     }
 
     /**
-     * Operation getTransactionTransactionIDAsync
+     * Operation getTransactionAsync
      *
      * GET /private-api/transactions/{transactionID}
      *
      * @param  string $transaction_id PayPlay internal transaction id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactionID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransaction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTransactionTransactionIDAsync($transaction_id, string $contentType = self::contentTypes['getTransactionTransactionID'][0])
+    public function getTransactionAsync($transaction_id, string $contentType = self::contentTypes['getTransaction'][0])
     {
-        return $this->getTransactionTransactionIDAsyncWithHttpInfo($transaction_id, $contentType)
+        return $this->getTransactionAsyncWithHttpInfo($transaction_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7523,20 +6864,20 @@ class DefaultApi
     }
 
     /**
-     * Operation getTransactionTransactionIDAsyncWithHttpInfo
+     * Operation getTransactionAsyncWithHttpInfo
      *
      * GET /private-api/transactions/{transactionID}
      *
      * @param  string $transaction_id PayPlay internal transaction id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactionID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransaction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTransactionTransactionIDAsyncWithHttpInfo($transaction_id, string $contentType = self::contentTypes['getTransactionTransactionID'][0])
+    public function getTransactionAsyncWithHttpInfo($transaction_id, string $contentType = self::contentTypes['getTransaction'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetOrderOrderId200Response';
-        $request = $this->getTransactionTransactionIDRequest($transaction_id, $contentType);
+        $returnType = '\PayPlayClient\Model\GetOrders200Response';
+        $request = $this->getTransactionRequest($transaction_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7575,21 +6916,21 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getTransactionTransactionID'
+     * Create request for operation 'getTransaction'
      *
      * @param  string $transaction_id PayPlay internal transaction id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactionID'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransaction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getTransactionTransactionIDRequest($transaction_id, string $contentType = self::contentTypes['getTransactionTransactionID'][0])
+    public function getTransactionRequest($transaction_id, string $contentType = self::contentTypes['getTransaction'][0])
     {
 
         // verify the required parameter 'transaction_id' is set
         if ($transaction_id === null || (is_array($transaction_id) && count($transaction_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $transaction_id when calling getTransactionTransactionID'
+                'Missing the required parameter $transaction_id when calling getTransaction'
             );
         }
 
@@ -7671,36 +7012,36 @@ class DefaultApi
     }
 
     /**
-     * Operation getTransactionTransactions
+     * Operation getTransactions
      *
      * GET /private-api/transactions
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactions'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetOrderOrderId200Response
+     * @return \PayPlayClient\Model\GetOrders200Response
      */
-    public function getTransactionTransactions(string $contentType = self::contentTypes['getTransactionTransactions'][0])
+    public function getTransactions(string $contentType = self::contentTypes['getTransactions'][0])
     {
-        list($response) = $this->getTransactionTransactionsWithHttpInfo($contentType);
+        list($response) = $this->getTransactionsWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getTransactionTransactionsWithHttpInfo
+     * Operation getTransactionsWithHttpInfo
      *
      * GET /private-api/transactions
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactions'] to see the possible values for this operation
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetOrderOrderId200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetOrders200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTransactionTransactionsWithHttpInfo(string $contentType = self::contentTypes['getTransactionTransactions'][0])
+    public function getTransactionsWithHttpInfo(string $contentType = self::contentTypes['getTransactions'][0])
     {
-        $request = $this->getTransactionTransactionsRequest($contentType);
+        $request = $this->getTransactionsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7728,7 +7069,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $request,
                         $response,
                     );
@@ -7750,7 +7091,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetOrderOrderId200Response',
+                '\PayPlayClient\Model\GetOrders200Response',
                 $request,
                 $response,
             );
@@ -7759,7 +7100,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetOrderOrderId200Response',
+                        '\PayPlayClient\Model\GetOrders200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7772,18 +7113,18 @@ class DefaultApi
     }
 
     /**
-     * Operation getTransactionTransactionsAsync
+     * Operation getTransactionsAsync
      *
      * GET /private-api/transactions
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTransactionTransactionsAsync(string $contentType = self::contentTypes['getTransactionTransactions'][0])
+    public function getTransactionsAsync(string $contentType = self::contentTypes['getTransactions'][0])
     {
-        return $this->getTransactionTransactionsAsyncWithHttpInfo($contentType)
+        return $this->getTransactionsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7792,19 +7133,19 @@ class DefaultApi
     }
 
     /**
-     * Operation getTransactionTransactionsAsyncWithHttpInfo
+     * Operation getTransactionsAsyncWithHttpInfo
      *
      * GET /private-api/transactions
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTransactionTransactionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTransactionTransactions'][0])
+    public function getTransactionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTransactions'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetOrderOrderId200Response';
-        $request = $this->getTransactionTransactionsRequest($contentType);
+        $returnType = '\PayPlayClient\Model\GetOrders200Response';
+        $request = $this->getTransactionsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7843,14 +7184,14 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'getTransactionTransactions'
+     * Create request for operation 'getTransactions'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactionTransactions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTransactions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getTransactionTransactionsRequest(string $contentType = self::contentTypes['getTransactionTransactions'][0])
+    public function getTransactionsRequest(string $contentType = self::contentTypes['getTransactions'][0])
     {
 
 
@@ -8175,6 +7516,665 @@ class DefaultApi
     }
 
     /**
+     * Operation instantConvertWithdrawal
+     *
+     * POST /private-api/convert-withdrawal/instant
+     *
+     * @param  mixed $currency the currency to be converted (required)
+     * @param  mixed $amount the amount in currency to be converted (required)
+     * @param  mixed $target_currency the currency into which the conversion will take place (required)
+     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
+     * @param  mixed $network crypto wallet network (required)
+     * @param  mixed|null $memo crypto wallet memo (optional)
+     * @param  mixed|null $external_id external id (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['instantConvertWithdrawal'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
+     */
+    public function instantConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['instantConvertWithdrawal'][0])
+    {
+        list($response) = $this->instantConvertWithdrawalWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation instantConvertWithdrawalWithHttpInfo
+     *
+     * POST /private-api/convert-withdrawal/instant
+     *
+     * @param  mixed $currency the currency to be converted (required)
+     * @param  mixed $amount the amount in currency to be converted (required)
+     * @param  mixed $target_currency the currency into which the conversion will take place (required)
+     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
+     * @param  mixed $network crypto wallet network (required)
+     * @param  mixed|null $memo crypto wallet memo (optional)
+     * @param  mixed|null $external_id external id (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['instantConvertWithdrawal'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function instantConvertWithdrawalWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['instantConvertWithdrawal'][0])
+    {
+        $request = $this->instantConvertWithdrawalRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation instantConvertWithdrawalAsync
+     *
+     * POST /private-api/convert-withdrawal/instant
+     *
+     * @param  mixed $currency the currency to be converted (required)
+     * @param  mixed $amount the amount in currency to be converted (required)
+     * @param  mixed $target_currency the currency into which the conversion will take place (required)
+     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
+     * @param  mixed $network crypto wallet network (required)
+     * @param  mixed|null $memo crypto wallet memo (optional)
+     * @param  mixed|null $external_id external id (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['instantConvertWithdrawal'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function instantConvertWithdrawalAsync($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['instantConvertWithdrawal'][0])
+    {
+        return $this->instantConvertWithdrawalAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation instantConvertWithdrawalAsyncWithHttpInfo
+     *
+     * POST /private-api/convert-withdrawal/instant
+     *
+     * @param  mixed $currency the currency to be converted (required)
+     * @param  mixed $amount the amount in currency to be converted (required)
+     * @param  mixed $target_currency the currency into which the conversion will take place (required)
+     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
+     * @param  mixed $network crypto wallet network (required)
+     * @param  mixed|null $memo crypto wallet memo (optional)
+     * @param  mixed|null $external_id external id (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['instantConvertWithdrawal'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function instantConvertWithdrawalAsyncWithHttpInfo($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['instantConvertWithdrawal'][0])
+    {
+        $returnType = '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response';
+        $request = $this->instantConvertWithdrawalRequest($currency, $amount, $target_currency, $address, $network, $memo, $external_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'instantConvertWithdrawal'
+     *
+     * @param  mixed $currency the currency to be converted (required)
+     * @param  mixed $amount the amount in currency to be converted (required)
+     * @param  mixed $target_currency the currency into which the conversion will take place (required)
+     * @param  mixed $address the address of the crypto wallet to which the funds will be withdrawn (required)
+     * @param  mixed $network crypto wallet network (required)
+     * @param  mixed|null $memo crypto wallet memo (optional)
+     * @param  mixed|null $external_id external id (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['instantConvertWithdrawal'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function instantConvertWithdrawalRequest($currency, $amount, $target_currency, $address, $network, $memo = null, $external_id = null, string $contentType = self::contentTypes['instantConvertWithdrawal'][0])
+    {
+
+        // verify the required parameter 'currency' is set
+        if ($currency === null || (is_array($currency) && count($currency) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $currency when calling instantConvertWithdrawal'
+            );
+        }
+
+        // verify the required parameter 'amount' is set
+        if ($amount === null || (is_array($amount) && count($amount) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $amount when calling instantConvertWithdrawal'
+            );
+        }
+
+        // verify the required parameter 'target_currency' is set
+        if ($target_currency === null || (is_array($target_currency) && count($target_currency) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $target_currency when calling instantConvertWithdrawal'
+            );
+        }
+
+        // verify the required parameter 'address' is set
+        if ($address === null || (is_array($address) && count($address) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $address when calling instantConvertWithdrawal'
+            );
+        }
+
+        // verify the required parameter 'network' is set
+        if ($network === null || (is_array($network) && count($network) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $network when calling instantConvertWithdrawal'
+            );
+        }
+
+
+
+
+        $resourcePath = '/private-api/convert-withdrawal/instant';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $currency,
+            'currency', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $amount,
+            'amount', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $target_currency,
+            'target_currency', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $address,
+            'address', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $network,
+            'network', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $memo,
+            'memo', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $external_id,
+            'external_id', // param base name
+            'mixed', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation payAcquiring
+     *
+     * POST /acquiring/{slug}/pay
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payAcquiring'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \PayPlayClient\Model\GetAcquiringCurrencies200Response
+     */
+    public function payAcquiring($slug, string $contentType = self::contentTypes['payAcquiring'][0])
+    {
+        list($response) = $this->payAcquiringWithHttpInfo($slug, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation payAcquiringWithHttpInfo
+     *
+     * POST /acquiring/{slug}/pay
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payAcquiring'] to see the possible values for this operation
+     *
+     * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \PayPlayClient\Model\GetAcquiringCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function payAcquiringWithHttpInfo($slug, string $contentType = self::contentTypes['payAcquiring'][0])
+    {
+        $request = $this->payAcquiringRequest($slug, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PayPlayClient\Model\GetAcquiringCurrencies200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation payAcquiringAsync
+     *
+     * POST /acquiring/{slug}/pay
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payAcquiring'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function payAcquiringAsync($slug, string $contentType = self::contentTypes['payAcquiring'][0])
+    {
+        return $this->payAcquiringAsyncWithHttpInfo($slug, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation payAcquiringAsyncWithHttpInfo
+     *
+     * POST /acquiring/{slug}/pay
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payAcquiring'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function payAcquiringAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['payAcquiring'][0])
+    {
+        $returnType = '\PayPlayClient\Model\GetAcquiringCurrencies200Response';
+        $request = $this->payAcquiringRequest($slug, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'payAcquiring'
+     *
+     * @param  string $slug unique instance name defined for payment page. can be found on each payment page settings page in CRM. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payAcquiring'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function payAcquiringRequest($slug, string $contentType = self::contentTypes['payAcquiring'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling payAcquiring'
+            );
+        }
+
+
+        $resourcePath = '/acquiring/{slug}/pay';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($slug !== null) {
+            $resourcePath = str_replace(
+                '{' . 'slug' . '}',
+                ObjectSerializer::toPathValue($slug),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation refreshConvertWithdrawal
      *
      * POST /private-api/convert-withdrawal/{transactionID}/refresh
@@ -8184,7 +8184,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PayPlayClient\Model\GetCurrenciesCurrencies200Response
+     * @return \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
      */
     public function refreshConvertWithdrawal($transaction_id, string $contentType = self::contentTypes['refreshConvertWithdrawal'][0])
     {
@@ -8202,7 +8202,7 @@ class DefaultApi
      *
      * @throws \PayPlayClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PayPlayClient\Model\GetCurrenciesCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function refreshConvertWithdrawalWithHttpInfo($transaction_id, string $contentType = self::contentTypes['refreshConvertWithdrawal'][0])
     {
@@ -8234,7 +8234,7 @@ class DefaultApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                         $request,
                         $response,
                     );
@@ -8256,7 +8256,7 @@ class DefaultApi
             }
 
             return $this->handleResponseWithDataType(
-                '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                 $request,
                 $response,
             );
@@ -8265,7 +8265,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PayPlayClient\Model\GetCurrenciesCurrencies200Response',
+                        '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8311,7 +8311,7 @@ class DefaultApi
      */
     public function refreshConvertWithdrawalAsyncWithHttpInfo($transaction_id, string $contentType = self::contentTypes['refreshConvertWithdrawal'][0])
     {
-        $returnType = '\PayPlayClient\Model\GetCurrenciesCurrencies200Response';
+        $returnType = '\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response';
         $request = $this->refreshConvertWithdrawalRequest($transaction_id, $contentType);
 
         return $this->client

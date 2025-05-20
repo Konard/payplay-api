@@ -4,101 +4,41 @@ All URIs are relative to https://api.payplay.io, except if the operation defines
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**completeCryptoOrder()**](DefaultApi.md#completeCryptoOrder) | **POST** /private-api/crypto-orders/{slug}/{orderID}/complete | POST /private-api/crypto-orders/{slug}/{orderID}/complete |
 | [**confirmConvertWithdrawal()**](DefaultApi.md#confirmConvertWithdrawal) | **POST** /private-api/convert-withdrawal/{transactionID}/confirm | POST /private-api/convert-withdrawal/{transactionID}/confirm |
-| [**createAcquiring()**](DefaultApi.md#createAcquiring) | **POST** /acquiring/{slug}/pay | POST /acquiring/{slug}/pay |
 | [**createBalances()**](DefaultApi.md#createBalances) | **POST** /private-api/balances/{balanceID} | POST /private-api/balances/{balanceID} |
 | [**createConvertWithdrawal()**](DefaultApi.md#createConvertWithdrawal) | **POST** /private-api/convert-withdrawal | POST /private-api/convert-withdrawal |
-| [**createCryptoOrder()**](DefaultApi.md#createCryptoOrder) | **POST** /private-api/crypto-orders/{slug} | POST /private-api/crypto-orders/{slug} |
+| [**createCryptoOrders()**](DefaultApi.md#createCryptoOrders) | **POST** /private-api/crypto-orders/{slug} | POST /private-api/crypto-orders/{slug} |
+| [**createCryptoOrdersComplete()**](DefaultApi.md#createCryptoOrdersComplete) | **POST** /private-api/crypto-orders/{slug}/{orderID}/complete | POST /private-api/crypto-orders/{slug}/{orderID}/complete |
 | [**createCryptoTopups()**](DefaultApi.md#createCryptoTopups) | **POST** /private-api/crypto-topups/{slug} | POST /private-api/crypto-topups/{slug} |
-| [**createInstantConvertWithdrawal()**](DefaultApi.md#createInstantConvertWithdrawal) | **POST** /private-api/convert-withdrawal/instant | POST /private-api/convert-withdrawal/instant |
 | [**createMassPayout()**](DefaultApi.md#createMassPayout) | **POST** /mass-payouts | POST /mass-payouts |
-| [**createRefund()**](DefaultApi.md#createRefund) | **POST** /private-api/refunds/orders/{orderID} | POST /private-api/refunds/orders/{orderID} |
+| [**createRefundsOrders()**](DefaultApi.md#createRefundsOrders) | **POST** /private-api/refunds/orders/{orderID} | POST /private-api/refunds/orders/{orderID} |
 | [**createWithdrawal()**](DefaultApi.md#createWithdrawal) | **POST** /private-api/{slug}/withdrawal | POST /private-api/{slug}/withdrawal |
-| [**getAcquiringOrderID()**](DefaultApi.md#getAcquiringOrderID) | **GET** /acquiring/{slug}/order/{orderID} | GET /acquiring/{slug}/order/{orderID} |
-| [**getBalanceBalanceID()**](DefaultApi.md#getBalanceBalanceID) | **GET** /private-api/balances/{balanceID} | GET /private-api/balances/{balanceID} |
-| [**getBalanceBalances()**](DefaultApi.md#getBalanceBalances) | **GET** /private-api/balances/ | GET /private-api/balances/ |
-| [**getCryptoOrderOrderID()**](DefaultApi.md#getCryptoOrderOrderID) | **GET** /private-api/crypto-orders/{slug}/{orderID} | GET /private-api/crypto-orders/{slug}/{orderID} |
-| [**getCryptoOrderSlug()**](DefaultApi.md#getCryptoOrderSlug) | **GET** /private-api/crypto-orders/{slug} | GET /private-api/crypto-orders/{slug} |
-| [**getCurrenciesCryptoOrderTargetCurrencies()**](DefaultApi.md#getCurrenciesCryptoOrderTargetCurrencies) | **GET** /currencies/crypto-order-target-currencies | GET /currencies/crypto-order-target-currencies |
-| [**getCurrenciesCryptoTopupTargetCurrencies()**](DefaultApi.md#getCurrenciesCryptoTopupTargetCurrencies) | **GET** /private-api/currencies/crypto-topup-target-currencies | GET /private-api/currencies/crypto-topup-target-currencies |
-| [**getCurrenciesCurrencies()**](DefaultApi.md#getCurrenciesCurrencies) | **GET** /private-api/convert-withdrawal/currencies | GET /private-api/convert-withdrawal/currencies |
-| [**getCurrenciesCurrencies1()**](DefaultApi.md#getCurrenciesCurrencies1) | **GET** /acquiring/{slug}/currencies | GET /acquiring/{slug}/currencies |
-| [**getExchangeRatesCurrencyTicker()**](DefaultApi.md#getExchangeRatesCurrencyTicker) | **GET** /private-api/exchange-rates/{currencyTicker} | GET /private-api/exchange-rates/{currencyTicker} |
-| [**getOrderOrderId()**](DefaultApi.md#getOrderOrderId) | **GET** /private-api/orders/{slug}/{orderId} | GET /private-api/orders/{slug}/{orderId} |
-| [**getOrderSlug()**](DefaultApi.md#getOrderSlug) | **GET** /private-api/orders/{slug} | GET /private-api/orders/{slug} |
+| [**getAcquiringCurrencies()**](DefaultApi.md#getAcquiringCurrencies) | **GET** /acquiring/{slug}/currencies | GET /acquiring/{slug}/currencies |
+| [**getAcquiringOrder()**](DefaultApi.md#getAcquiringOrder) | **GET** /acquiring/{slug}/order/{orderID} | GET /acquiring/{slug}/order/{orderID} |
+| [**getBalance()**](DefaultApi.md#getBalance) | **GET** /private-api/balances/{balanceID} | GET /private-api/balances/{balanceID} |
+| [**getBalances()**](DefaultApi.md#getBalances) | **GET** /private-api/balances/ | GET /private-api/balances/ |
+| [**getConvertWithdrawalCurrencies()**](DefaultApi.md#getConvertWithdrawalCurrencies) | **GET** /private-api/convert-withdrawal/currencies | GET /private-api/convert-withdrawal/currencies |
+| [**getCryptoOrder()**](DefaultApi.md#getCryptoOrder) | **GET** /private-api/crypto-orders/{slug} | GET /private-api/crypto-orders/{slug} |
+| [**getCryptoOrders()**](DefaultApi.md#getCryptoOrders) | **GET** /private-api/crypto-orders/{slug}/{orderID} | GET /private-api/crypto-orders/{slug}/{orderID} |
+| [**getCurrencyCryptoOrderTargetCurrencies()**](DefaultApi.md#getCurrencyCryptoOrderTargetCurrencies) | **GET** /currencies/crypto-order-target-currencies | GET /currencies/crypto-order-target-currencies |
+| [**getCurrencyCryptoTopupTargetCurrencies()**](DefaultApi.md#getCurrencyCryptoTopupTargetCurrencies) | **GET** /private-api/currencies/crypto-topup-target-currencies | GET /private-api/currencies/crypto-topup-target-currencies |
+| [**getExchangeRate()**](DefaultApi.md#getExchangeRate) | **GET** /private-api/exchange-rates/{currencyTicker} | GET /private-api/exchange-rates/{currencyTicker} |
+| [**getOrder()**](DefaultApi.md#getOrder) | **GET** /private-api/orders/{slug} | GET /private-api/orders/{slug} |
 | [**getOrderStatuses()**](DefaultApi.md#getOrderStatuses) | **GET** /private-api/order-statuses | GET /private-api/order-statuses |
-| [**getRateRates()**](DefaultApi.md#getRateRates) | **GET** /rates | GET /rates |
-| [**getTransactionTransactionID()**](DefaultApi.md#getTransactionTransactionID) | **GET** /private-api/transactions/{transactionID} | GET /private-api/transactions/{transactionID} |
-| [**getTransactionTransactions()**](DefaultApi.md#getTransactionTransactions) | **GET** /private-api/transactions | GET /private-api/transactions |
+| [**getOrders()**](DefaultApi.md#getOrders) | **GET** /private-api/orders/{slug}/{orderId} | GET /private-api/orders/{slug}/{orderId} |
+| [**getRates()**](DefaultApi.md#getRates) | **GET** /rates | GET /rates |
+| [**getTransaction()**](DefaultApi.md#getTransaction) | **GET** /private-api/transactions/{transactionID} | GET /private-api/transactions/{transactionID} |
+| [**getTransactions()**](DefaultApi.md#getTransactions) | **GET** /private-api/transactions | GET /private-api/transactions |
 | [**getWithdrawalFees()**](DefaultApi.md#getWithdrawalFees) | **GET** /private-api/withdrawals/fees | GET /private-api/withdrawals/fees |
+| [**instantConvertWithdrawal()**](DefaultApi.md#instantConvertWithdrawal) | **POST** /private-api/convert-withdrawal/instant | POST /private-api/convert-withdrawal/instant |
+| [**payAcquiring()**](DefaultApi.md#payAcquiring) | **POST** /acquiring/{slug}/pay | POST /acquiring/{slug}/pay |
 | [**refreshConvertWithdrawal()**](DefaultApi.md#refreshConvertWithdrawal) | **POST** /private-api/convert-withdrawal/{transactionID}/refresh | POST /private-api/convert-withdrawal/{transactionID}/refresh |
 
-
-## `completeCryptoOrder()`
-
-```php
-completeCryptoOrder($slug, $order_id): \PayPlayClient\Model\GetCryptoOrderSlug200Response
-```
-
-POST /private-api/crypto-orders/{slug}/{orderID}/complete
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new PayPlayClient\Api\DefaultApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$slug = 'slug_example'; // string | unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
-$order_id = 'order_id_example'; // string | PayPlay internal order identifier
-
-try {
-    $result = $apiInstance->completeCryptoOrder($slug, $order_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->completeCryptoOrder: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **slug** | **string**| unique instance name defined for payment page. Can be found on each payment page settings page in CRM. | |
-| **order_id** | **string**| PayPlay internal order identifier | |
-
-### Return type
-
-[**\PayPlayClient\Model\GetCryptoOrderSlug200Response**](../Model/GetCryptoOrderSlug200Response.md)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
 
 ## `confirmConvertWithdrawal()`
 
 ```php
-confirmConvertWithdrawal($transaction_id): \PayPlayClient\Model\GetCurrenciesCurrencies200Response
+confirmConvertWithdrawal($transaction_id): \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
 ```
 
 POST /private-api/convert-withdrawal/{transactionID}/confirm
@@ -138,65 +78,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetCurrenciesCurrencies200Response**](../Model/GetCurrenciesCurrencies200Response.md)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `createAcquiring()`
-
-```php
-createAcquiring($slug): \PayPlayClient\Model\GetCurrenciesCurrencies1200Response
-```
-
-POST /acquiring/{slug}/pay
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new PayPlayClient\Api\DefaultApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$slug = 'slug_example'; // string | unique instance name defined for payment page. can be found on each payment page settings page in CRM.
-
-try {
-    $result = $apiInstance->createAcquiring($slug);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->createAcquiring: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **slug** | **string**| unique instance name defined for payment page. can be found on each payment page settings page in CRM. | |
-
-### Return type
-
-[**\PayPlayClient\Model\GetCurrenciesCurrencies1200Response**](../Model/GetCurrenciesCurrencies1200Response.md)
+[**\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response**](../Model/GetConvertWithdrawalCurrencies200Response.md)
 
 ### Authorization
 
@@ -214,7 +96,7 @@ try {
 ## `createBalances()`
 
 ```php
-createBalances($balance_id): \PayPlayClient\Model\GetBalanceBalances200Response
+createBalances($balance_id): \PayPlayClient\Model\GetBalances200Response
 ```
 
 POST /private-api/balances/{balanceID}
@@ -254,7 +136,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetBalanceBalances200Response**](../Model/GetBalanceBalances200Response.md)
+[**\PayPlayClient\Model\GetBalances200Response**](../Model/GetBalances200Response.md)
 
 ### Authorization
 
@@ -272,7 +154,7 @@ try {
 ## `createConvertWithdrawal()`
 
 ```php
-createConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo, $external_id): \PayPlayClient\Model\GetCurrenciesCurrencies200Response
+createConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo, $external_id): \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
 ```
 
 POST /private-api/convert-withdrawal
@@ -324,7 +206,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetCurrenciesCurrencies200Response**](../Model/GetCurrenciesCurrencies200Response.md)
+[**\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response**](../Model/GetConvertWithdrawalCurrencies200Response.md)
 
 ### Authorization
 
@@ -339,10 +221,10 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `createCryptoOrder()`
+## `createCryptoOrders()`
 
 ```php
-createCryptoOrder($slug): \PayPlayClient\Model\GetCryptoOrderSlug200Response
+createCryptoOrders($slug): \PayPlayClient\Model\GetCryptoOrder200Response
 ```
 
 POST /private-api/crypto-orders/{slug}
@@ -367,10 +249,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 $slug = 'slug_example'; // string | unique instance name defined for payment page. can be found on each payment page settings page in CRM.
 
 try {
-    $result = $apiInstance->createCryptoOrder($slug);
+    $result = $apiInstance->createCryptoOrders($slug);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->createCryptoOrder: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->createCryptoOrders: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -382,7 +264,67 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetCryptoOrderSlug200Response**](../Model/GetCryptoOrderSlug200Response.md)
+[**\PayPlayClient\Model\GetCryptoOrder200Response**](../Model/GetCryptoOrder200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createCryptoOrdersComplete()`
+
+```php
+createCryptoOrdersComplete($slug, $order_id): \PayPlayClient\Model\GetCryptoOrder200Response
+```
+
+POST /private-api/crypto-orders/{slug}/{orderID}/complete
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PayPlayClient\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$slug = 'slug_example'; // string | unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
+$order_id = 'order_id_example'; // string | PayPlay internal order identifier
+
+try {
+    $result = $apiInstance->createCryptoOrdersComplete($slug, $order_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->createCryptoOrdersComplete: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **slug** | **string**| unique instance name defined for payment page. Can be found on each payment page settings page in CRM. | |
+| **order_id** | **string**| PayPlay internal order identifier | |
+
+### Return type
+
+[**\PayPlayClient\Model\GetCryptoOrder200Response**](../Model/GetCryptoOrder200Response.md)
 
 ### Authorization
 
@@ -400,7 +342,7 @@ try {
 ## `createCryptoTopups()`
 
 ```php
-createCryptoTopups($slug): \PayPlayClient\Model\GetCryptoOrderSlug200Response
+createCryptoTopups($slug): \PayPlayClient\Model\GetCryptoOrder200Response
 ```
 
 POST /private-api/crypto-topups/{slug}
@@ -440,77 +382,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetCryptoOrderSlug200Response**](../Model/GetCryptoOrderSlug200Response.md)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `createInstantConvertWithdrawal()`
-
-```php
-createInstantConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo, $external_id): \PayPlayClient\Model\GetCurrenciesCurrencies200Response
-```
-
-POST /private-api/convert-withdrawal/instant
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new PayPlayClient\Api\DefaultApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$currency = NULL; // mixed | the currency to be converted
-$amount = NULL; // mixed | the amount in currency to be converted
-$target_currency = NULL; // mixed | the currency into which the conversion will take place
-$address = NULL; // mixed | the address of the crypto wallet to which the funds will be withdrawn
-$network = NULL; // mixed | crypto wallet network
-$memo = NULL; // mixed | crypto wallet memo
-$external_id = NULL; // mixed | external id
-
-try {
-    $result = $apiInstance->createInstantConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo, $external_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->createInstantConvertWithdrawal: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **currency** | [**mixed**](../Model/.md)| the currency to be converted | |
-| **amount** | [**mixed**](../Model/.md)| the amount in currency to be converted | |
-| **target_currency** | [**mixed**](../Model/.md)| the currency into which the conversion will take place | |
-| **address** | [**mixed**](../Model/.md)| the address of the crypto wallet to which the funds will be withdrawn | |
-| **network** | [**mixed**](../Model/.md)| crypto wallet network | |
-| **memo** | [**mixed**](../Model/.md)| crypto wallet memo | [optional] |
-| **external_id** | [**mixed**](../Model/.md)| external id | [optional] |
-
-### Return type
-
-[**\PayPlayClient\Model\GetCurrenciesCurrencies200Response**](../Model/GetCurrenciesCurrencies200Response.md)
+[**\PayPlayClient\Model\GetCryptoOrder200Response**](../Model/GetCryptoOrder200Response.md)
 
 ### Authorization
 
@@ -580,10 +452,10 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `createRefund()`
+## `createRefundsOrders()`
 
 ```php
-createRefund($order_id): \PayPlayClient\Model\CreateRefund200Response
+createRefundsOrders($order_id): \PayPlayClient\Model\CreateRefundsOrders200Response
 ```
 
 POST /private-api/refunds/orders/{orderID}
@@ -608,10 +480,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 $order_id = 'order_id_example'; // string | PayPlay order id
 
 try {
-    $result = $apiInstance->createRefund($order_id);
+    $result = $apiInstance->createRefundsOrders($order_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->createRefund: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->createRefundsOrders: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -623,7 +495,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\CreateRefund200Response**](../Model/CreateRefund200Response.md)
+[**\PayPlayClient\Model\CreateRefundsOrders200Response**](../Model/CreateRefundsOrders200Response.md)
 
 ### Authorization
 
@@ -696,10 +568,68 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getAcquiringOrderID()`
+## `getAcquiringCurrencies()`
 
 ```php
-getAcquiringOrderID($slug, $order_id): \PayPlayClient\Model\GetCurrenciesCurrencies1200Response
+getAcquiringCurrencies($slug): \PayPlayClient\Model\GetAcquiringCurrencies200Response
+```
+
+GET /acquiring/{slug}/currencies
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PayPlayClient\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$slug = 'slug_example'; // string | unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+
+try {
+    $result = $apiInstance->getAcquiringCurrencies($slug);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getAcquiringCurrencies: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **slug** | **string**| unique instance name defined for payment page. can be found on each payment page settings page in CRM. | |
+
+### Return type
+
+[**\PayPlayClient\Model\GetAcquiringCurrencies200Response**](../Model/GetAcquiringCurrencies200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getAcquiringOrder()`
+
+```php
+getAcquiringOrder($slug, $order_id): \PayPlayClient\Model\GetAcquiringCurrencies200Response
 ```
 
 GET /acquiring/{slug}/order/{orderID}
@@ -725,10 +655,10 @@ $slug = 'slug_example'; // string | unique instance name defined for payment pag
 $order_id = 'order_id_example'; // string | PayPlay internal order id
 
 try {
-    $result = $apiInstance->getAcquiringOrderID($slug, $order_id);
+    $result = $apiInstance->getAcquiringOrder($slug, $order_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getAcquiringOrderID: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getAcquiringOrder: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -741,7 +671,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetCurrenciesCurrencies1200Response**](../Model/GetCurrenciesCurrencies1200Response.md)
+[**\PayPlayClient\Model\GetAcquiringCurrencies200Response**](../Model/GetAcquiringCurrencies200Response.md)
 
 ### Authorization
 
@@ -756,10 +686,10 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getBalanceBalanceID()`
+## `getBalance()`
 
 ```php
-getBalanceBalanceID($balance_id): \PayPlayClient\Model\GetBalanceBalances200Response
+getBalance($balance_id): \PayPlayClient\Model\GetBalances200Response
 ```
 
 GET /private-api/balances/{balanceID}
@@ -784,10 +714,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 $balance_id = 'balance_id_example'; // string | balance id in specified balance currency
 
 try {
-    $result = $apiInstance->getBalanceBalanceID($balance_id);
+    $result = $apiInstance->getBalance($balance_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getBalanceBalanceID: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getBalance: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -799,7 +729,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetBalanceBalances200Response**](../Model/GetBalanceBalances200Response.md)
+[**\PayPlayClient\Model\GetBalances200Response**](../Model/GetBalances200Response.md)
 
 ### Authorization
 
@@ -814,10 +744,10 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getBalanceBalances()`
+## `getBalances()`
 
 ```php
-getBalanceBalances($balance_id): \PayPlayClient\Model\GetBalanceBalances200Response
+getBalances($balance_id): \PayPlayClient\Model\GetBalances200Response
 ```
 
 GET /private-api/balances/
@@ -842,10 +772,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 $balance_id = NULL; // mixed | balance id in specified balance currency
 
 try {
-    $result = $apiInstance->getBalanceBalances($balance_id);
+    $result = $apiInstance->getBalances($balance_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getBalanceBalances: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getBalances: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -857,7 +787,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetBalanceBalances200Response**](../Model/GetBalanceBalances200Response.md)
+[**\PayPlayClient\Model\GetBalances200Response**](../Model/GetBalances200Response.md)
 
 ### Authorization
 
@@ -872,243 +802,10 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getCryptoOrderOrderID()`
+## `getConvertWithdrawalCurrencies()`
 
 ```php
-getCryptoOrderOrderID($slug, $order_id): \PayPlayClient\Model\GetCryptoOrderSlug200Response
-```
-
-GET /private-api/crypto-orders/{slug}/{orderID}
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new PayPlayClient\Api\DefaultApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$slug = 'slug_example'; // string | unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
-$order_id = 'order_id_example'; // string | unique identifier of order
-
-try {
-    $result = $apiInstance->getCryptoOrderOrderID($slug, $order_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getCryptoOrderOrderID: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **slug** | **string**| unique instance name defined for payment page. Can be found on each payment page settings page in CRM. | |
-| **order_id** | **string**| unique identifier of order | |
-
-### Return type
-
-[**\PayPlayClient\Model\GetCryptoOrderSlug200Response**](../Model/GetCryptoOrderSlug200Response.md)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getCryptoOrderSlug()`
-
-```php
-getCryptoOrderSlug($slug): \PayPlayClient\Model\GetCryptoOrderSlug200Response
-```
-
-GET /private-api/crypto-orders/{slug}
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new PayPlayClient\Api\DefaultApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$slug = 'slug_example'; // string | unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
-
-try {
-    $result = $apiInstance->getCryptoOrderSlug($slug);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getCryptoOrderSlug: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **slug** | **string**| unique instance name defined for payment page. Can be found on each payment page settings page in CRM. | |
-
-### Return type
-
-[**\PayPlayClient\Model\GetCryptoOrderSlug200Response**](../Model/GetCryptoOrderSlug200Response.md)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getCurrenciesCryptoOrderTargetCurrencies()`
-
-```php
-getCurrenciesCryptoOrderTargetCurrencies($slug, $order_id): \PayPlayClient\Model\GetCryptoOrderSlug200Response
-```
-
-GET /currencies/crypto-order-target-currencies
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new PayPlayClient\Api\DefaultApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$slug = NULL; // mixed | unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
-$order_id = NULL; // mixed | PayPlay internal order identifier
-
-try {
-    $result = $apiInstance->getCurrenciesCryptoOrderTargetCurrencies($slug, $order_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getCurrenciesCryptoOrderTargetCurrencies: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **slug** | [**mixed**](../Model/.md)| unique instance name defined for payment page. Can be found on each payment page settings page in CRM. | |
-| **order_id** | [**mixed**](../Model/.md)| PayPlay internal order identifier | |
-
-### Return type
-
-[**\PayPlayClient\Model\GetCryptoOrderSlug200Response**](../Model/GetCryptoOrderSlug200Response.md)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getCurrenciesCryptoTopupTargetCurrencies()`
-
-```php
-getCurrenciesCryptoTopupTargetCurrencies(): \PayPlayClient\Model\GetCryptoOrderSlug200Response
-```
-
-GET /private-api/currencies/crypto-topup-target-currencies
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new PayPlayClient\Api\DefaultApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-
-try {
-    $result = $apiInstance->getCurrenciesCryptoTopupTargetCurrencies();
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getCurrenciesCryptoTopupTargetCurrencies: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**\PayPlayClient\Model\GetCryptoOrderSlug200Response**](../Model/GetCryptoOrderSlug200Response.md)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getCurrenciesCurrencies()`
-
-```php
-getCurrenciesCurrencies($currency, $amount, $target_currency, $address, $network, $memo, $external_id): \PayPlayClient\Model\GetCurrenciesCurrencies200Response
+getConvertWithdrawalCurrencies($currency, $amount, $target_currency, $address, $network, $memo, $external_id): \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
 ```
 
 GET /private-api/convert-withdrawal/currencies
@@ -1139,10 +836,10 @@ $memo = NULL; // mixed | crypto wallet memo
 $external_id = NULL; // mixed | external id
 
 try {
-    $result = $apiInstance->getCurrenciesCurrencies($currency, $amount, $target_currency, $address, $network, $memo, $external_id);
+    $result = $apiInstance->getConvertWithdrawalCurrencies($currency, $amount, $target_currency, $address, $network, $memo, $external_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getCurrenciesCurrencies: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getConvertWithdrawalCurrencies: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1160,7 +857,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetCurrenciesCurrencies200Response**](../Model/GetCurrenciesCurrencies200Response.md)
+[**\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response**](../Model/GetConvertWithdrawalCurrencies200Response.md)
 
 ### Authorization
 
@@ -1175,13 +872,13 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getCurrenciesCurrencies1()`
+## `getCryptoOrder()`
 
 ```php
-getCurrenciesCurrencies1($slug): \PayPlayClient\Model\GetCurrenciesCurrencies1200Response
+getCryptoOrder($slug): \PayPlayClient\Model\GetCryptoOrder200Response
 ```
 
-GET /acquiring/{slug}/currencies
+GET /private-api/crypto-orders/{slug}
 
 ### Example
 
@@ -1200,13 +897,13 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
     new GuzzleHttp\Client(),
     $config
 );
-$slug = 'slug_example'; // string | unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+$slug = 'slug_example'; // string | unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
 
 try {
-    $result = $apiInstance->getCurrenciesCurrencies1($slug);
+    $result = $apiInstance->getCryptoOrder($slug);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getCurrenciesCurrencies1: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getCryptoOrder: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1214,11 +911,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **slug** | **string**| unique instance name defined for payment page. can be found on each payment page settings page in CRM. | |
+| **slug** | **string**| unique instance name defined for payment page. Can be found on each payment page settings page in CRM. | |
 
 ### Return type
 
-[**\PayPlayClient\Model\GetCurrenciesCurrencies1200Response**](../Model/GetCurrenciesCurrencies1200Response.md)
+[**\PayPlayClient\Model\GetCryptoOrder200Response**](../Model/GetCryptoOrder200Response.md)
 
 ### Authorization
 
@@ -1233,10 +930,185 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getExchangeRatesCurrencyTicker()`
+## `getCryptoOrders()`
 
 ```php
-getExchangeRatesCurrencyTicker($currency_ticker): \PayPlayClient\Model\GetOrderOrderId200Response
+getCryptoOrders($slug, $order_id): \PayPlayClient\Model\GetCryptoOrder200Response
+```
+
+GET /private-api/crypto-orders/{slug}/{orderID}
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PayPlayClient\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$slug = 'slug_example'; // string | unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
+$order_id = 'order_id_example'; // string | unique identifier of order
+
+try {
+    $result = $apiInstance->getCryptoOrders($slug, $order_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getCryptoOrders: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **slug** | **string**| unique instance name defined for payment page. Can be found on each payment page settings page in CRM. | |
+| **order_id** | **string**| unique identifier of order | |
+
+### Return type
+
+[**\PayPlayClient\Model\GetCryptoOrder200Response**](../Model/GetCryptoOrder200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getCurrencyCryptoOrderTargetCurrencies()`
+
+```php
+getCurrencyCryptoOrderTargetCurrencies($slug, $order_id): \PayPlayClient\Model\GetCryptoOrder200Response
+```
+
+GET /currencies/crypto-order-target-currencies
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PayPlayClient\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$slug = NULL; // mixed | unique instance name defined for payment page. Can be found on each payment page settings page in CRM.
+$order_id = NULL; // mixed | PayPlay internal order identifier
+
+try {
+    $result = $apiInstance->getCurrencyCryptoOrderTargetCurrencies($slug, $order_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getCurrencyCryptoOrderTargetCurrencies: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **slug** | [**mixed**](../Model/.md)| unique instance name defined for payment page. Can be found on each payment page settings page in CRM. | |
+| **order_id** | [**mixed**](../Model/.md)| PayPlay internal order identifier | |
+
+### Return type
+
+[**\PayPlayClient\Model\GetCryptoOrder200Response**](../Model/GetCryptoOrder200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getCurrencyCryptoTopupTargetCurrencies()`
+
+```php
+getCurrencyCryptoTopupTargetCurrencies(): \PayPlayClient\Model\GetCryptoOrder200Response
+```
+
+GET /private-api/currencies/crypto-topup-target-currencies
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PayPlayClient\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getCurrencyCryptoTopupTargetCurrencies();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getCurrencyCryptoTopupTargetCurrencies: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\PayPlayClient\Model\GetCryptoOrder200Response**](../Model/GetCryptoOrder200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getExchangeRate()`
+
+```php
+getExchangeRate($currency_ticker): \PayPlayClient\Model\GetOrders200Response
 ```
 
 GET /private-api/exchange-rates/{currencyTicker}
@@ -1261,10 +1133,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 $currency_ticker = 'currency_ticker_example'; // string | The currencyTicker parameter in the URL path
 
 try {
-    $result = $apiInstance->getExchangeRatesCurrencyTicker($currency_ticker);
+    $result = $apiInstance->getExchangeRate($currency_ticker);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getExchangeRatesCurrencyTicker: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getExchangeRate: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1276,7 +1148,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetOrderOrderId200Response**](../Model/GetOrderOrderId200Response.md)
+[**\PayPlayClient\Model\GetOrders200Response**](../Model/GetOrders200Response.md)
 
 ### Authorization
 
@@ -1291,70 +1163,10 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getOrderOrderId()`
+## `getOrder()`
 
 ```php
-getOrderOrderId($slug, $order_id): \PayPlayClient\Model\GetOrderOrderId200Response
-```
-
-GET /private-api/orders/{slug}/{orderId}
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new PayPlayClient\Api\DefaultApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$slug = 'slug_example'; // string | unique instance name defined for payment page. can be found on each payment page settings page in CRM.
-$order_id = 'order_id_example'; // string | unique identifier of order
-
-try {
-    $result = $apiInstance->getOrderOrderId($slug, $order_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getOrderOrderId: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **slug** | **string**| unique instance name defined for payment page. can be found on each payment page settings page in CRM. | |
-| **order_id** | **string**| unique identifier of order | |
-
-### Return type
-
-[**\PayPlayClient\Model\GetOrderOrderId200Response**](../Model/GetOrderOrderId200Response.md)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getOrderSlug()`
-
-```php
-getOrderSlug($slug): \PayPlayClient\Model\GetOrderOrderId200Response
+getOrder($slug): \PayPlayClient\Model\GetOrders200Response
 ```
 
 GET /private-api/orders/{slug}
@@ -1379,10 +1191,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 $slug = 'slug_example'; // string | unique instance name defined for payment page. can be found on each payment page settings page in CRM.
 
 try {
-    $result = $apiInstance->getOrderSlug($slug);
+    $result = $apiInstance->getOrder($slug);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getOrderSlug: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getOrder: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1394,7 +1206,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetOrderOrderId200Response**](../Model/GetOrderOrderId200Response.md)
+[**\PayPlayClient\Model\GetOrders200Response**](../Model/GetOrders200Response.md)
 
 ### Authorization
 
@@ -1412,7 +1224,7 @@ try {
 ## `getOrderStatuses()`
 
 ```php
-getOrderStatuses($transaction_id): \PayPlayClient\Model\GetOrderOrderId200Response
+getOrderStatuses($transaction_id): \PayPlayClient\Model\GetOrders200Response
 ```
 
 GET /private-api/order-statuses
@@ -1452,7 +1264,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetOrderOrderId200Response**](../Model/GetOrderOrderId200Response.md)
+[**\PayPlayClient\Model\GetOrders200Response**](../Model/GetOrders200Response.md)
 
 ### Authorization
 
@@ -1467,10 +1279,70 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getRateRates()`
+## `getOrders()`
 
 ```php
-getRateRates(): \PayPlayClient\Model\GetOrderOrderId200Response
+getOrders($slug, $order_id): \PayPlayClient\Model\GetOrders200Response
+```
+
+GET /private-api/orders/{slug}/{orderId}
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PayPlayClient\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$slug = 'slug_example'; // string | unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+$order_id = 'order_id_example'; // string | unique identifier of order
+
+try {
+    $result = $apiInstance->getOrders($slug, $order_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getOrders: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **slug** | **string**| unique instance name defined for payment page. can be found on each payment page settings page in CRM. | |
+| **order_id** | **string**| unique identifier of order | |
+
+### Return type
+
+[**\PayPlayClient\Model\GetOrders200Response**](../Model/GetOrders200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getRates()`
+
+```php
+getRates(): \PayPlayClient\Model\GetOrders200Response
 ```
 
 GET /rates
@@ -1494,10 +1366,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 );
 
 try {
-    $result = $apiInstance->getRateRates();
+    $result = $apiInstance->getRates();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getRateRates: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getRates: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1507,7 +1379,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**\PayPlayClient\Model\GetOrderOrderId200Response**](../Model/GetOrderOrderId200Response.md)
+[**\PayPlayClient\Model\GetOrders200Response**](../Model/GetOrders200Response.md)
 
 ### Authorization
 
@@ -1522,10 +1394,10 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getTransactionTransactionID()`
+## `getTransaction()`
 
 ```php
-getTransactionTransactionID($transaction_id): \PayPlayClient\Model\GetOrderOrderId200Response
+getTransaction($transaction_id): \PayPlayClient\Model\GetOrders200Response
 ```
 
 GET /private-api/transactions/{transactionID}
@@ -1550,10 +1422,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 $transaction_id = 'transaction_id_example'; // string | PayPlay internal transaction id
 
 try {
-    $result = $apiInstance->getTransactionTransactionID($transaction_id);
+    $result = $apiInstance->getTransaction($transaction_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getTransactionTransactionID: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getTransaction: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1565,7 +1437,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetOrderOrderId200Response**](../Model/GetOrderOrderId200Response.md)
+[**\PayPlayClient\Model\GetOrders200Response**](../Model/GetOrders200Response.md)
 
 ### Authorization
 
@@ -1580,10 +1452,10 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getTransactionTransactions()`
+## `getTransactions()`
 
 ```php
-getTransactionTransactions(): \PayPlayClient\Model\GetOrderOrderId200Response
+getTransactions(): \PayPlayClient\Model\GetOrders200Response
 ```
 
 GET /private-api/transactions
@@ -1607,10 +1479,10 @@ $apiInstance = new PayPlayClient\Api\DefaultApi(
 );
 
 try {
-    $result = $apiInstance->getTransactionTransactions();
+    $result = $apiInstance->getTransactions();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getTransactionTransactions: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getTransactions: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1620,7 +1492,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**\PayPlayClient\Model\GetOrderOrderId200Response**](../Model/GetOrderOrderId200Response.md)
+[**\PayPlayClient\Model\GetOrders200Response**](../Model/GetOrders200Response.md)
 
 ### Authorization
 
@@ -1690,10 +1562,138 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `instantConvertWithdrawal()`
+
+```php
+instantConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo, $external_id): \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
+```
+
+POST /private-api/convert-withdrawal/instant
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PayPlayClient\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$currency = NULL; // mixed | the currency to be converted
+$amount = NULL; // mixed | the amount in currency to be converted
+$target_currency = NULL; // mixed | the currency into which the conversion will take place
+$address = NULL; // mixed | the address of the crypto wallet to which the funds will be withdrawn
+$network = NULL; // mixed | crypto wallet network
+$memo = NULL; // mixed | crypto wallet memo
+$external_id = NULL; // mixed | external id
+
+try {
+    $result = $apiInstance->instantConvertWithdrawal($currency, $amount, $target_currency, $address, $network, $memo, $external_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->instantConvertWithdrawal: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **currency** | [**mixed**](../Model/.md)| the currency to be converted | |
+| **amount** | [**mixed**](../Model/.md)| the amount in currency to be converted | |
+| **target_currency** | [**mixed**](../Model/.md)| the currency into which the conversion will take place | |
+| **address** | [**mixed**](../Model/.md)| the address of the crypto wallet to which the funds will be withdrawn | |
+| **network** | [**mixed**](../Model/.md)| crypto wallet network | |
+| **memo** | [**mixed**](../Model/.md)| crypto wallet memo | [optional] |
+| **external_id** | [**mixed**](../Model/.md)| external id | [optional] |
+
+### Return type
+
+[**\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response**](../Model/GetConvertWithdrawalCurrencies200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `payAcquiring()`
+
+```php
+payAcquiring($slug): \PayPlayClient\Model\GetAcquiringCurrencies200Response
+```
+
+POST /acquiring/{slug}/pay
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PayPlayClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PayPlayClient\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$slug = 'slug_example'; // string | unique instance name defined for payment page. can be found on each payment page settings page in CRM.
+
+try {
+    $result = $apiInstance->payAcquiring($slug);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->payAcquiring: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **slug** | **string**| unique instance name defined for payment page. can be found on each payment page settings page in CRM. | |
+
+### Return type
+
+[**\PayPlayClient\Model\GetAcquiringCurrencies200Response**](../Model/GetAcquiringCurrencies200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `refreshConvertWithdrawal()`
 
 ```php
-refreshConvertWithdrawal($transaction_id): \PayPlayClient\Model\GetCurrenciesCurrencies200Response
+refreshConvertWithdrawal($transaction_id): \PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response
 ```
 
 POST /private-api/convert-withdrawal/{transactionID}/refresh
@@ -1733,7 +1733,7 @@ try {
 
 ### Return type
 
-[**\PayPlayClient\Model\GetCurrenciesCurrencies200Response**](../Model/GetCurrenciesCurrencies200Response.md)
+[**\PayPlayClient\Model\GetConvertWithdrawalCurrencies200Response**](../Model/GetConvertWithdrawalCurrencies200Response.md)
 
 ### Authorization
 
