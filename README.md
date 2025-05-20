@@ -47,21 +47,43 @@ try {
 The client provides access to all API endpoints through the `DefaultApi` class. Here are some common operations:
 
 #### Balances
-- `getBalanceBalances()` - Get all balances
-- `getBalanceBalanceID($balanceID)` - Get balance by ID
+- `getBalances()` - Get all balances
+- `getBalance($balanceID)` - Get balance by ID
+- `createBalances($balanceID)` - Create a new balance
 
 #### Orders
-- `getOrderSlug($slug)` - Get orders for a merchant
-- `getOrderOrderId($slug, $orderId)` - Get order details
-- `createCryptoOrder($slug, $body)` - Create a new crypto order
+- `getOrder($slug)` - Get orders for a merchant
+- `getOrders($slug, $orderId)` - Get order details
+- `createCryptoOrders($slug)` - Create a new crypto order
+- `getCryptoOrder($slug)` - Get crypto orders for a merchant
+- `getCryptoOrders($slug, $orderID)` - Get crypto order details
+- `createCryptoOrdersComplete($slug, $orderID)` - Complete a crypto order
 
 #### Transactions
-- `getTransactionTransactions()` - List all transactions
-- `getTransactionTransactionID($transactionID)` - Get transaction details
+- `getTransactions()` - List all transactions
+- `getTransaction($transactionID)` - Get transaction details
 
 #### Withdrawals
 - `createWithdrawal($slug, $body)` - Create a withdrawal
 - `getWithdrawalFees()` - Get withdrawal fees
+- `createConvertWithdrawal($currency, $amount, $targetCurrency, $address, $network, $memo, $externalId)` - Create a conversion withdrawal
+- `confirmConvertWithdrawal($transactionID)` - Confirm a conversion withdrawal
+- `refreshConvertWithdrawal($transactionID)` - Refresh a conversion withdrawal
+- `instantConvertWithdrawal()` - Create an instant conversion withdrawal
+
+#### Mass Payouts
+- `createMassPayout()` - Create a mass payout
+
+#### Acquiring
+- `getAcquiringCurrencies($slug)` - Get available currencies for acquiring
+- `getAcquiringOrder($slug, $orderID)` - Get acquiring order details
+- `payAcquiring($slug, $body)` - Process an acquiring payment
+
+#### Currencies and Rates
+- `getRates()` - Get current exchange rates
+- `getExchangeRate($currencyTicker)` - Get exchange rate for a specific currency
+- `getCurrencyCryptoOrderTargetCurrencies()` - Get available target currencies for crypto orders
+- `getCurrencyCryptoTopupTargetCurrencies()` - Get available target currencies for crypto topups
 
 For a complete list of available endpoints and their parameters, see the [API Documentation](src/client/docs/Api/DefaultApi.md).
 
@@ -144,6 +166,18 @@ payplay-api/
 
 ### Naming Conventions
 
+#### Operation IDs
+The API uses consistent operation ID generation rules:
+- Operation IDs are generated from HTTP method and path segments
+- Words are deduplicated (case-insensitive)
+- Resource names are singularized/pluralized appropriately
+- Common prefixes like 'api', 'private', 'public' are removed
+- Parameter segments are handled consistently
+- Examples:
+  - `POST /private-api/{slug}/withdrawal` → `createWithdrawal`
+  - `GET /private-api/withdrawals/fees` → `getWithdrawalFees`
+  - `POST /mass-payouts` → `createMassPayouts`
+
 #### Files and Directories
 - Use hyphens (`-`) as separators in file and directory names
 - Example: `static-wallets`, `get-currencies`, `api-client.php`
@@ -160,7 +194,7 @@ payplay-api/
 
 1. PHP 8.2 or later
 2. Composer (PHP package manager)
-3. Java Runtime Environment (JRE) 8 or later (for generating the client)
+3. Node.js (for running the OpenAPI schema generator)
 4. OpenAPI Generator CLI
 
 #### Installation
@@ -172,9 +206,22 @@ npm install @openapitools/openapi-generator-cli -g
 
 2. Install development dependencies:
 ```bash
-cd src/client
 composer install
 ```
+
+### Generating the Schema
+
+The OpenAPI schema is generated from markdown documentation files:
+
+```bash
+node generator/generate-openapi.mjs
+```
+
+This will:
+1. Parse all markdown files in the `docs/` directory
+2. Generate operation IDs using the defined rules
+3. Create a complete OpenAPI schema in `openapi.yaml`
+4. Include all endpoints, models, and security schemes
 
 ### Generating the Client
 
@@ -218,3 +265,13 @@ The generated code follows PSR-12 standards. You can format the code using PHP C
 cd src/client
 composer cs-fix
 ```
+
+### Recent Updates
+
+- Updated operation ID generation rules for better consistency
+- Added deduplication of words in operation IDs
+- Improved handling of resource names (singular/plural)
+- Enhanced path normalization
+- Added support for mass payout operations
+- Updated model classes for all endpoints
+- Added comprehensive test coverage for new models
