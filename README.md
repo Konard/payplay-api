@@ -33,10 +33,10 @@ $api = new DefaultApi(null, $config);
 
 try {
     // Get balances
-    $result = $api->getBalanceBalances();
+    $result = $api->getBalances();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->getBalanceBalances: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getBalances: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -92,11 +92,11 @@ For a complete list of available endpoints and their parameters, see the [API Do
 The client includes strongly-typed model classes for all request and response objects. These are located in the `PayPlay\Client\Model` namespace. For example:
 
 ```php
-use PayPlay\Client\Model\GetBalanceBalances200Response;
-use PayPlay\Client\Model\GetBalanceBalances200ResponseBalancesInner;
+use PayPlay\Client\Model\GetBalances200Response;
+use PayPlay\Client\Model\GetBalances200ResponseBalancesInner;
 
 // Create a new balance request
-$balance = new GetBalanceBalances200ResponseBalancesInner();
+$balance = new GetBalances200ResponseBalancesInner();
 $balance->setCurrency('USDT');
 $balance->setAmount('100.00');
 ```
@@ -109,7 +109,7 @@ The client throws exceptions for API errors:
 
 ```php
 try {
-    $result = $api->getBalanceBalances();
+    $result = $api->getBalances();
 } catch (\PayPlay\Client\ApiException $e) {
     // Handle API errors (e.g., 400, 401, 403, 404, etc.)
     echo "API Error: " . $e->getMessage() . "\n";
